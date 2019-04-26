@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    TODO                                               :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/04/26 15:34:46 by qbackaer          #+#    #+#              #
+#    Updated: 2019/04/26 19:26:54 by qbackaer         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+I. INIT.
+
+	1. Get the environment variables via [extern char **environ] and copy them in a new string table. [v]
+
+II. PROMPT.
+
+	1. Display a prompt [v]
+	2. Get user input in a string. [v]
+	3. Divide the input words in a string table. [v]
+
+III. PARSING.
+	
+	By reading the first input word, check if it's a builtin, an executable or none. 
+	1. First compare to all builtins of msh (echo, cd, setenv, unsetenv, env, exit). 
+	2. If it match, execute the corresponding builtin command (See IV). 
+	3. If not, look into the PATH environement variable to look for a matching executable. 
+	4.  If it matches, execute the corresponding bin (See V).
+
+IV. BUILTINS.
+	
+	Implement the following builtin commands:
+	1. echo
+	2. cd
+	3. exit
+	4. setenv
+	5. unsetenv
+	6. env
+
+V. BINS.
+	
