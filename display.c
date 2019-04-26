@@ -6,14 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:33:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/26 19:21:10 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/26 20:57:06 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-
-char	*get_username(char	**envv_l)
+char	*get_usrname(char **envv_l)
 {
 	char	*usrname;
 	char	**roam;
@@ -38,11 +37,11 @@ void	prompt(char **envv_l)
 {
 	char cwd_buff[1000];
 
-	ft_putstr(get_username(envv_l));
+	ft_putstr(get_usrname(envv_l));
 	ft_putstr(CYAN);
 	ft_putstr("@");
 	ft_putstr(RESET);
-	ft_putstr("msh ");
+	ft_putstr("computer");
 	ft_putstr(MAG);
 	ft_putstr(getcwd(cwd_buff, 999));
 	ft_putstr(RESET);
