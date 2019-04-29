@@ -6,24 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/26 21:00:46 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/29 20:30:27 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-
-char	**get_path_list(char **envv_l)
-{
-	char **roam;
-	char **path_list;
-
-	roam = envv_l;
-	while (*roam && ft_strncmp(*roam, "PATH=", 5))
-		roam++;
-	if (!(path_list = ft_strsplit(*roam, ':')))
-		return (NULL);
-	return (path_list);
-}
 
 int		is_builtin(char **cmd, char **envv_l)
 {
@@ -40,15 +27,50 @@ int		is_builtin(char **cmd, char **envv_l)
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "env"))
 		ft_putendl("builtin command!");
-	return (1);
+	return (0);
 }
 
 int		is_binary(char **cmd, char **envv_l)
 {
-	char	**path_list;
+	char			**path_list;
+	char			**roam;
+	int				found;
 
-	if (!(path_list = get_path_list(envv_l)))
+	if (!envv_l || !cmd)
 		return (0);
-	ft_putendl(cmd[0]);
-	return (1);
+	if (!(path_list = split_paths(get_env_var(envv_l, "PATH"))))
+		return (0);
+	roam = path_list;
+	found = 0;
+	while (*roam)
+	{
+		if (find_binary(*roam, cmd[0]))
+		{
+			printf("%s/%s\n", *roam, cmd[0]);
+			found = 1;
+			break;
+		}
+		roam++;
+	}
+	return (found);
+}
+
+int		find_binary(char *dirpath, char *binname)
+{
+	struct dirent	*de;
+	DIR				*dr;
+
+	if(!(dr = opendir(dirpath)))
+	{
+		printf("opendir failure\n");
+		return (0);
+	}
+	while ((de = readdir(dr)))
+		if (!ft_strcmp(binname, de->d_name))
+		{
+			return (1);
+			closedir(dr);
+		}
+	return (0);
+	closedir(dr);
 }
