@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/30 18:04:19 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:21:57 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		is_builtin(char **cmd, char **envv_l)
 {
-	envv_l = NULL;
 	if (!ft_strcmp(cmd[0], "echo"))
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "cd"))
@@ -22,7 +21,11 @@ int		is_builtin(char **cmd, char **envv_l)
 	if (!ft_strcmp(cmd[0], "exit"))
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "setenv"))
-		ft_putendl("builtin command!");
+	{
+		if (!set_env(cmd, envv_l))
+			return (0);
+		return (1);
+	}
 	if (!ft_strcmp(cmd[0], "unsetenv"))
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "env"))

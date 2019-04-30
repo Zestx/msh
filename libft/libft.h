@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 16:47:24 by qbackaer          #+#    #+#             */
-/*   Updated: 2018/12/06 18:30:08 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 20:03:59 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void			*ft_lstputchar(t_list *lst, int n);
 void			*ft_lstputchar(t_list *lst, int n);
 void			*ft_lstputstr(t_list *lst, int n);
 int				get_next_line(const int fd, char **line );
+char			**ft_realloc_tab(char **old_tab, char *new_entry);
 
 #endif

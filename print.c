@@ -6,30 +6,27 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:08:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/29 19:25:54 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:23:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void	test_getenv(char **envv_l)
+void	printenv(char **envv_l)
 {
 	char	**roam;
 
 	if (!envv_l)
 	{
-		ft_putendl("test_getenv: error.");
+		ft_putendl("printenv: error.");
 		return ;
 	}
-	ft_putendl("ENVIRONEMENT VARIABLES");
-	ft_putendl("======================");
 	roam = envv_l;
 	while (*roam)
 	{
 		ft_putendl(*roam);
 		roam++;
 	}
-	ft_putendl("======================");
 }
 
 void	test_getinp(char **input)

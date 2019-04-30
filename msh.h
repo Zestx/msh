@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/30 17:51:18 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:40:37 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ char	*cat_path(char *dir, char *name);
 int		execute(char *path, char **cmd, char **envv_l);
 char	*get_env_var(char **envv_l, char *var_name);
 char	**split_paths(char *paths_var);
+int		set_env(char **cmd, char **envv_l);
+int		replace_env(char **cmd, char **envv_l);
+int		env_match(char *to_find, char *curr_var);
+char	*set_var(char *to_set, char *name, char *value);
+void	printenv(char **envv_l);
 
-void	test_getenv(char **envv_l);
 void	test_getinp(char **input);
 void	test_splits(char **paths);
 #endif
