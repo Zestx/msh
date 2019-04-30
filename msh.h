@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/29 20:24:43 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:51:18 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <dirent.h>
 # include "libft/libft.h"
 
@@ -38,6 +40,8 @@ int		dispatch(char **input, char **envv_l);
 int		is_builtin(char **cmd, char **envv_l);
 int		is_binary(char **cmd, char **envv_l);
 int		find_binary(char *dirpath, char *binname);
+char	*cat_path(char *dir, char *name);
+int		execute(char *path, char **cmd, char **envv_l);
 char	*get_env_var(char **envv_l, char *var_name);
 char	**split_paths(char *paths_var);
 

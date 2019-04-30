@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/29 20:30:27 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/04/30 18:04:19 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int		is_binary(char **cmd, char **envv_l)
 	{
 		if (find_binary(*roam, cmd[0]))
 		{
-			printf("%s/%s\n", *roam, cmd[0]);
+			execute(cat_path(*roam, cmd[0]), cmd, envv_l);
 			found = 1;
-			break;
+			break ;
 		}
 		roam++;
 	}
@@ -60,7 +60,7 @@ int		find_binary(char *dirpath, char *binname)
 	struct dirent	*de;
 	DIR				*dr;
 
-	if(!(dr = opendir(dirpath)))
+	if (!(dr = opendir(dirpath)))
 	{
 		printf("opendir failure\n");
 		return (0);
@@ -73,4 +73,56 @@ int		find_binary(char *dirpath, char *binname)
 		}
 	return (0);
 	closedir(dr);
+}
+
+char	*cat_path(char *dir, char *name)
+{
+	char	*full_path;
+	int		i;
+	int		j;
+
+	if (!(full_path = malloc(ft_strlen(dir) + ft_strlen(name) + 2)))
+		return (NULL);
+	i = 0;
+	while (dir[i])
+	{
+		full_path[i] = dir[i];
+		i++;
+	}
+	full_path[i++] = '/';
+	j = 0;
+	while (name[j])
+	{
+		full_path[i] = name[j];
+		j++;
+		i++;
+	}
+	full_path[i] = '\0';
+	return (full_path);
+}
+
+int		execute(char *path, char **cmd, char **envv_l)
+{
+	pid_t		pid;
+	struct stat	st_buff;
+
+	if (!path)
+		return (0);
+	lstat(path, &st_buff);
+	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
+	{
+		pid = fork();
+		if (pid == 0)
+			execve(path, cmd, envv_l);
+		if (pid > 0)
+			wait(&pid);
+		if (pid < 0)
+		{
+			ft_putendl("forking failed.");
+			return (0);
+		}
+	}
+	else
+		return (0);
+	return (1);
 }
