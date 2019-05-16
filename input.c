@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/26 19:16:16 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:05:01 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-size_t	count_words(char *str)
+static size_t	count_words(char *str)
 {
 	size_t	count;
 	char	*roam;
@@ -33,7 +33,7 @@ size_t	count_words(char *str)
 	return (count);
 }
 
-char	**fill_avtab(char **av_tab, char *input_str, size_t wc)
+static char		**fill_avtab(char **av_tab, char *input_str, size_t wc)
 {
 	char	*roam_ptr;
 	char	*args_ptr;
@@ -61,7 +61,7 @@ char	**fill_avtab(char **av_tab, char *input_str, size_t wc)
 	return (av_tab);
 }
 
-char	**get_input(char **envv_l)
+char			**get_input(char **envv_l)
 {
 	char	*input_str;
 	char	**av_tab;

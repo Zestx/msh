@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:33:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/26 20:57:06 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/16 20:47:12 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-char	*get_usrname(char **envv_l)
+/*static char	*get_usrname(char **envv_l)
 {
 	char	*usrname;
 	char	**roam;
@@ -31,13 +31,13 @@ char	*get_usrname(char **envv_l)
 		roam++;
 	}
 	return (NULL);
-}
+}*/
 
-void	prompt(char **envv_l)
+void		prompt(void)
 {
 	char cwd_buff[1000];
 
-	ft_putstr(get_usrname(envv_l));
+	ft_putstr("usr");
 	ft_putstr(CYAN);
 	ft_putstr("@");
 	ft_putstr(RESET);
@@ -48,7 +48,7 @@ void	prompt(char **envv_l)
 	ft_putstr("> ");
 }
 
-void	title(void)
+void		title(void)
 {
 	ft_putstr("-------------------\n|");
 	ft_putstr(MAG);

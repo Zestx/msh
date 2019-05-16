@@ -6,7 +6,7 @@
 #    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/23 18:15:17 by qbackaer          #+#    #+#              #
-#    Updated: 2019/04/30 19:42:28 by qbackaer         ###   ########.fr        #
+#    Updated: 2019/05/03 14:51:49 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 	   ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 	   ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 	   ft_isupper.c ft_islower.c ft_ccount.c ft_lstcount.c ft_isspacer.c \
-	   get_next_line.c ft_realloc_tab.c
+	   get_next_line.c ft_realloc_tab.c ft_free_tab2.c
 OBJS = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o \
 	   ft_memmove.o ft_memchr.o ft_memcmp.o \
 	   ft_strlen.o ft_strdup.o ft_strcpy.o ft_strncpy.o \
@@ -48,7 +48,7 @@ OBJS = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o \
 	   ft_lstnew.o ft_lstdelone.o ft_lstdel.o \
 	   ft_lstadd.o ft_lstiter.o ft_lstmap.o \
 	   ft_isupper.o ft_islower.o ft_ccount.o ft_lstcount.o ft_isspacer.o \
-	   get_next_line.o ft_realloc_tab.o
+	   get_next_line.o ft_realloc_tab.o ft_free_tab2.o
 
 .PHONY: all clean fclean re
 

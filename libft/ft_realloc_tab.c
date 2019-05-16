@@ -6,39 +6,43 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 19:41:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/04/30 19:58:30 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/03 14:54:15 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	**ft_realloc_tab(char **old_tab, char *new_entry)
 {
 	int		count;
 	char	**new_tab;
-	char	**roam;
+	char	**roam_o;
+	char	**roam_n;
 
 	if (!old_tab || !new_entry)
 		return (NULL);
 	count = 0;
-	roam = old_tab;
-	while (*roam)
+	roam_o = old_tab;
+	while (*roam_o)
 	{
 		count++;
-		roam++;
+		roam_o++;
 	}
 	if (!(new_tab = malloc(sizeof(new_tab) * (count + 2))))
 		return (NULL);
-	roam = new_tab;
-	while (*old_tab)
+	roam_n = new_tab;
+	roam_o = old_tab;
+	while (*roam_o)
 	{
-		if (!(*roam = ft_strdup(*old_tab)))
+		if (!(*roam_n = ft_strdup(*roam_o)))
 			return (NULL);
-		old_tab++;
-		roam++;
+		roam_o++;
+		roam_n++;
 	}
-	if (!(*roam = ft_strdup(new_entry)))
+	if (!(*roam_n = ft_strdup(new_entry)))
 			return (NULL);
 	new_tab[count + 1] = NULL;
+	ft_free_tab2(old_tab);
 	return (new_tab);
 }
