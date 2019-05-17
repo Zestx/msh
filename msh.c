@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 20:46:48 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:37:28 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,13 @@ char	**get_env(char **environ)
 	return (envv_l);
 }
 
-static void		sig_handler(int signo)
+void		psig_handler(int signo)
+{
+	if (signo == SIGINT)
+		ft_putstr("\n");
+}
+
+void		msig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -86,7 +92,7 @@ int		main(void)
 	char		**envv_l;
 	char		**input;
 
-	signal(SIGINT, sig_handler);
+	signal(SIGINT, msig_handler);
 	if (!(envv_l = get_env(environ)))
 		return (1);
 	title();

@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:23:21 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 14:30:09 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:01:48 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ char	**set_env(char **cmd, char ***envv_l)
 	if (replace_env(cmd, *envv_l) < 0)
 		return (NULL);
 	if (replace_env(cmd, *envv_l) == 0)
-	{
 		*envv_l = ft_realloc_tab(*envv_l, set_var(NULL, cmd[1], cmd[2]));
-		printenv(*envv_l);
-	}
 	return (*envv_l);
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 20:46:29 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:37:04 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,7 @@ void			printenv(char **envv_l);
 char			**unset_env(char **cmd, char ***envv_l);
 void			test_getinp(char **input);
 void			test_splits(char **paths);
+void			msig_handler(int signo);
+void			psig_handler(int signo);
+
 #endif

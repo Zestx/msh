@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 20:31:54 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:36:26 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int			execute(char *path, char **cmd, char **envv_l)
 	lstat(path, &st_buff);
 	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
 	{
+		signal(SIGINT, psig_handler);
 		pid = fork();
 		if (pid == 0)
 			execve(path, cmd, envv_l);
