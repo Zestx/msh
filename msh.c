@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 17:37:28 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:36:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int		main(void)
 	while (1)
 	{
 		input = get_input(envv_l);
+		if (!input[0])
+			continue ;
 		if (dispatch(input, &envv_l) < 0)
 			break ;
 	}

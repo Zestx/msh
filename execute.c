@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 17:36:26 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:03:47 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int			is_builtin(char **cmd, char ***envv_l)
 	if (!ft_strcmp(cmd[0], "echo"))
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "cd"))
-		ft_putendl("builtin command!");
+	{
+		cd(cmd, *envv_l);
+		return (1);
+	}
 	if (!ft_strcmp(cmd[0], "exit"))
 		return (-1);
 	if (!ft_strcmp(cmd[0], "setenv"))
@@ -118,7 +121,6 @@ int			execute(char *path, char **cmd, char **envv_l)
 	lstat(path, &st_buff);
 	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
 	{
-		signal(SIGINT, psig_handler);
 		pid = fork();
 		if (pid == 0)
 			execve(path, cmd, envv_l);

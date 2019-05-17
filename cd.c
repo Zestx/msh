@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab2.c                                     :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/03 14:42:41 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 19:33:10 by qbackaer         ###   ########.fr       */
+/*   Created: 2019/05/17 18:30:38 by qbackaer          #+#    #+#             */
+/*   Updated: 2019/05/17 21:05:42 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "msh.h"
 
-void	ft_free_tab2(char **tab)
+int		cd(char **cmd, char **envv_l)
 {
-	char	**roam;
-
-	if (!tab)
-		return ;
-	roam = tab;
-	while (*roam)
+	if (cmd [1] && cmd[2])
 	{
-		free(*roam);
-		roam++;
+		ft_putendl("usage: cd <directory>");
+		return (1);
 	}
-	free(tab);
+	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][2]))
+		chdir(get_env_var(envv_l, "HOME"));
+	else
+		if (chdir(cmd[1]))
+		{
+			if (access(cmd[1], F))
+		}
+	return (1);
 }

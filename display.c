@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:33:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 20:47:12 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:08:03 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		title(void)
 	ft_putstr(MAG);
 	ft_putstr("~");
 	ft_putstr(RESET);
-	ft_putstr(" MINISHELL 0.1 ");
+	ft_putstr(" MINISHELL 0.2 ");
 	ft_putstr(MAG);
 	ft_putstr("~");
 	ft_putstr(RESET);
