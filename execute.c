@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 19:03:47 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/24 21:07:20 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ int			execute(char *path, char **cmd, char **envv_l)
 	{
 		pid = fork();
 		if (pid == 0)
+		{
 			execve(path, cmd, envv_l);
+			exit(EXIT_SUCCESS);
+		}
 		if (pid > 0)
 			wait(&pid);
 		if (pid < 0)

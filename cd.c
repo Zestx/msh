@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 18:30:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 21:05:42 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/05/24 18:26:04 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int		cd(char **cmd, char **envv_l)
 	else
 		if (chdir(cmd[1]))
 		{
-			if (access(cmd[1], F))
+			if (access(cmd[1], F_OK))
+				ft_putstr("cd: no such file or directory: ");
+			else if (access(cmd[1], R_OK))
+				ft_putstr("cd: permission denied: ");
+			else
+				ft_putstr("cd: not a directory: ");
 		}
 	return (1);
 }
