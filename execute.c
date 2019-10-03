@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/24 21:07:20 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:10:51 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			is_builtin(char **cmd, char ***envv_l)
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "env"))
-		ft_putendl("builtin command!");
+		printenv(*envv_l);
 	return (0);
 }
 
@@ -81,7 +81,7 @@ static char	*cat_path(char *dir, char *name)
 		full_path[i] = name[j];
 		j++;
 		i++;
-	}
+	}	
 	full_path[i] = '\0';
 	return (full_path);
 }
@@ -94,6 +94,16 @@ int			is_binary(char **cmd, char ***envv_l)
 
 	if (!envv_l || !cmd)
 		return (0);
+	if (cmd[0][0] == '/')
+	{
+		execute(cmd[0], cmd, *envv_l);
+		return (1);
+	}
+	else if (ft_strchr(cmd[0], '/'))
+	{
+		execute(cat_path(get_env_var(*envv_l, "HOME"), cmd[0]), cmd, *envv_l);
+		return (1);
+	}
 	if (!(path_list = split_paths(get_env_var(*envv_l, "PATH"))))
 		return (0);
 	roam = path_list;
