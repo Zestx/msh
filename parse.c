@@ -6,52 +6,76 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 18:07:11 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:50:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-
-static char		**fill_avtab(char **av_tab, char *input_str, size_t wc)
+static char		**expand_args(char **args, size_t ac)
 {
-	char	*roam_ptr;
-	char	*args_ptr;
-	int		word_size;
+	char	**exp;
+	char	**e_ptr;
+	char	**a_ptr;
+
+	if (!args)
+		return (NULL);
+	if (!(exp = malloc(sizeof(exp) * (ac + 1))))
+		exit(EXIT_FAILURE);
+	a_ptr = args;
+	e_ptr = exp;
+	while (*a_ptr)
+	{
+		if (ft_strchr(*a_ptr, '~'))
+			//*e_ptr = expand_tilde(*a_ptr);
+		if (ft_strchr(*a_ptr, '$'))
+			//*e_ptr = expand_dolar(*a_ptr);
+		if (!(*e_ptr++ = ft_strdup(*a_ptr++)))
+			exit(EXIT_FAILURE);
+	}
+	return (exp);
+}
+
+static char		**split_args(char **args, char *input_str, size_t ac)
+{
+	char	*roam;
+	char	*start;
+	int		arg_len;
 	size_t	i;
 
 	i = 0;
-	roam_ptr = input_str;
-	while (*roam_ptr && i < wc)
+	roam = input_str;
+	while (*roam && i < ac)
 	{
-		while (*roam_ptr && ft_isspacer(*roam_ptr))
-			roam_ptr++;
-		word_size = 0;
-		args_ptr = roam_ptr;
-		while (*roam_ptr && !ft_isspacer(*roam_ptr))
-		{
-			roam_ptr++;
-			word_size++;
-		}
-		if (!(av_tab[i] = strndup(args_ptr, word_size)))
-			return (NULL);
+		while (*roam && ft_isspacer(*roam))
+			roam++;
+		arg_len = 0;
+		start = roam;
+		while (*roam && !ft_isspacer(*roam++))
+			arg_len++;
+		if (!(args[i] = strndup(start, arg_len)))
+			exit(EXIT_FAILURE);
 		i++;
 	}
-	av_tab[(int)wc] = NULL;
-	return (av_tab);
+	args[(int)ac] = NULL;
+	return (args);
 }
 
-char			**get_input(char **envv_l)
+char			**get_input(char **env)
 {
 	char	*input_str;
-	char	**av_tab;
+	char	**args;
+	size_t	ac;
 
-	prompt(envv_l);
+	prompt(env);
 	if (get_next_line(0, &input_str) < 0)
 		exit(EXIT_FAILURE);
-	if (!(av_tab = malloc(sizeof(av_tab) * (count_words(input_str) + 1))))
+	if (!(ac = count_words(input_str)))
+		return (NULL);
+	if (!(args = malloc(sizeof(args) * (ac + 1))))
 		exit(EXIT_FAILURE);
-	if (!(av_tab = fill_avtab(av_tab, input_str, count_words(input_str))))
-		exit(EXIT_FAILURE);
-	return (av_tab);
+	args = split_args(args, input_str, ac);
+	args = expand_args(args, ac);
+	test_getinp(args);
+	return (args);
 }
