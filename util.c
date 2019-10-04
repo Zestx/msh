@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 18:05:07 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 20:38:38 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ char	*get_env_var(char **envv_l, char *var_name)
 	{
 		if (!ft_strncmp(*roam, var_name, var_len))
 		{
-			var_content = ft_strdup(*roam + var_len + 1);
-			return (var_content);
+			if (!(var_content = ft_strdup(*roam + var_len + 1)))
+				exit(EXIT_FAILURE;
+			eturn (var_content);
 		}
 		roam++;
 	}
@@ -63,4 +64,4 @@ size_t	count_words(char *str)
 		}
 	}
 	return (count);
-}
+

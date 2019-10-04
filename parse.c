@@ -6,13 +6,41 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 18:50:05 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 20:38:29 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static char		**expand_args(char **args, size_t ac)
+static char		*get_allvar(char *str, char **env)
+{
+	char	*start;
+	char	**var_list;
+	char	**roam;
+
+	//get a tab of all variables names
+	start = str;
+	while (*start != '$')
+		start++;
+	start++;
+	var_list = ft_strsplit(start, '$');
+	//check if all variables are valid
+	roam = var_list;
+	while (*roam)
+	{
+		
+	}
+}
+
+static char		*expand_var(char *str, char **env)
+{
+	char	*exp;
+	size_t	len;
+
+	return (exp);
+}
+
+static char		**expand_args(char **args, size_t ac, char **env)
 {
 	char	**exp;
 	char	**e_ptr;
@@ -26,11 +54,9 @@ static char		**expand_args(char **args, size_t ac)
 	e_ptr = exp;
 	while (*a_ptr)
 	{
-		if (ft_strchr(*a_ptr, '~'))
-			//*e_ptr = expand_tilde(*a_ptr);
 		if (ft_strchr(*a_ptr, '$'))
-			//*e_ptr = expand_dolar(*a_ptr);
-		if (!(*e_ptr++ = ft_strdup(*a_ptr++)))
+			*e_ptr++ = expand_var(*a_ptr++);
+		else if (!(*e_ptr++ = ft_strdup(*a_ptr++)))
 			exit(EXIT_FAILURE);
 	}
 	return (exp);

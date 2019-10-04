@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 18:26:12 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 19:02:12 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	get_tab_size(char **tab)
 	char	**roam;
 
 	if (!tab)
-		return (0);
+	return (0);
 	roam = tab;
 	size = 0;
 	while (*roam)
