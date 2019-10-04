@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 19:02:16 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:05:07 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,25 @@ char	**split_paths(char *paths_var)
 	if (!(paths = ft_strsplit(paths_var, ':')))
 		return (NULL);
 	return (paths);
+}
+
+size_t	count_words(char *str)
+{
+	size_t	count;
+	char	*roam;
+
+	roam = str;
+	count = 0;
+	while (*roam)
+	{
+		while (*roam && ft_isspacer(*roam))
+			roam++;
+		if (*roam && !ft_isspacer(*roam))
+		{
+			count++;
+			while (*roam && !ft_isspacer(*roam))
+				roam++;
+		}
+	}
+	return (count);
 }

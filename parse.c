@@ -6,32 +6,12 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 19:05:15 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:07:11 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static size_t	count_words(char *str)
-{
-	size_t	count;
-	char	*roam;
-
-	roam = str;
-	count = 0;
-	while (*roam)
-	{
-		while (*roam && ft_isspacer(*roam))
-			roam++;
-		if (*roam && !ft_isspacer(*roam))
-		{
-			count++;
-			while (*roam && !ft_isspacer(*roam))
-				roam++;
-		}
-	}
-	return (count);
-}
 
 static char		**fill_avtab(char **av_tab, char *input_str, size_t wc)
 {
@@ -68,10 +48,10 @@ char			**get_input(char **envv_l)
 
 	prompt(envv_l);
 	if (get_next_line(0, &input_str) < 0)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	if (!(av_tab = malloc(sizeof(av_tab) * (count_words(input_str) + 1))))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	if (!(av_tab = fill_avtab(av_tab, input_str, count_words(input_str))))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	return (av_tab);
 }

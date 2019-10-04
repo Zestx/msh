@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 19:36:08 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:06:33 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,12 @@ char	**get_env(char **environ)
 	char	**roam;
 
 	if (!(envv_l = malloc(sizeof(environ) * get_tab_size(environ) + 1)))
-	{
-		ft_putendl("memory error");
-		return (NULL);
-	}
+		exit(EXIT_FAILURE);
 	roam = envv_l;
 	while (*environ)
 	{
 		if (!(*roam = ft_strdup(*environ)))
-		{
-			ft_putendl("memory error");
-			return (NULL);
-		}
+			exit(EXIT_FAILURE);
 		environ++;
 		roam++;
 	}
