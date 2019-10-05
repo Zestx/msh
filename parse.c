@@ -6,60 +6,53 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 20:38:29 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 18:26:13 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static char		*get_allvar(char *str, char **env)
+static char		*expand_tilde(char *str, char *home)
 {
-	char	*start;
-	char	**var_list;
-	char	**roam;
+	char	*xstr;
+	int		i;
+	int		j;
 
-	//get a tab of all variables names
-	start = str;
-	while (*start != '$')
-		start++;
-	start++;
-	var_list = ft_strsplit(start, '$');
-	//check if all variables are valid
-	roam = var_list;
-	while (*roam)
-	{
-		
-	}
-}
-
-static char		*expand_var(char *str, char **env)
-{
-	char	*exp;
-	size_t	len;
-
-	return (exp);
-}
-
-static char		**expand_args(char **args, size_t ac, char **env)
-{
-	char	**exp;
-	char	**e_ptr;
-	char	**a_ptr;
-
-	if (!args)
-		return (NULL);
-	if (!(exp = malloc(sizeof(exp) * (ac + 1))))
+	if (!(xstr = malloc(ft_strlen(str) + ft_strlen(home))))
 		exit(EXIT_FAILURE);
-	a_ptr = args;
-	e_ptr = exp;
-	while (*a_ptr)
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		if (ft_strchr(*a_ptr, '$'))
-			*e_ptr++ = expand_var(*a_ptr++);
-		else if (!(*e_ptr++ = ft_strdup(*a_ptr++)))
-			exit(EXIT_FAILURE);
+		while (i == 0 && str[0] == '~' && home[j])
+		{
+			xstr[j] = home[j];
+			j++;
+		}
+		xstr[i + j] = str[i + 1];
+		i++;
 	}
-	return (exp);
+	return (xstr);
+}
+
+static char		**xpand_args(char **args, char **env, size_t ac)
+{
+	char	**xpnd;
+	int		i;
+
+	if (!(xpnd = malloc(sizeof(char **) * (ac + 1))))
+		exit(EXIT_FAILURE);
+	xpnd[ac] = NULL;
+	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == '~' && (!args[i][1] || args[i][1] == '/'))
+			xpnd[i] = expand_tilde(args[i], get_env_var(env, "HOME"));
+		else if (!(xpnd[i] = ft_strdup(args[i])))
+			exit(EXIT_FAILURE);
+		i++;
+	}
+	return (xpnd);
 }
 
 static char		**split_args(char **args, char *input_str, size_t ac)
@@ -101,7 +94,7 @@ char			**get_input(char **env)
 	if (!(args = malloc(sizeof(args) * (ac + 1))))
 		exit(EXIT_FAILURE);
 	args = split_args(args, input_str, ac);
-	args = expand_args(args, ac);
+	args = xpand_args(args, env, ac);
 	test_getinp(args);
 	return (args);
 }

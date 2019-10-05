@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:08:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 14:29:42 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 18:01:19 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	test_getinp(char **input)
 		ft_putendl("test_getinp: error.");
 		return ;
 	}
-	ft_putendl("USER INPUT:");
 	ft_putendl("======================");
 	roam = input;
 	i = 0;
