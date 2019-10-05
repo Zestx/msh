@@ -6,11 +6,35 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 20:29:58 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 20:55:35 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+static char		**get_val(char **split, char **env)
+{
+	char	**roam;
+	char	*tmp;
+
+	roam = split;
+	while (*roam)
+	{
+		if (*roam[0] == '$')
+		{
+			free(*roam);
+			if (!(tmp = get_env_var(env, (*roam) + 1)))
+			{
+				if (!(*roam = ft_strdup("")))
+					exit(EXIT_FAILURE);
+			}
+			else if (!(*roam = ft_strdup(tmp)))
+				exit(EXIT_FAILURE);
+		}
+		roam++;
+	}
+	return (NULL);
+}
 
 static char		**lex_var(char *str)
 {
@@ -43,6 +67,7 @@ static char		*expand_vars(char *str, char **env)
 	char **split;
 
 	split = lex_var(str);
+	get_val(split, env);
 	test_getinp(split);
 	return (ft_strdup("dollar\n"));
 }
