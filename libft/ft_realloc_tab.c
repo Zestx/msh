@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 19:41:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/03 14:54:15 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 19:08:49 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_realloc_tab(char **old_tab, char *new_entry)
 	char	**roam_o;
 	char	**roam_n;
 
-	if (!old_tab || !new_entry)
+	if (!new_entry)
 		return (NULL);
 	count = 0;
 	roam_o = old_tab;

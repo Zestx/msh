@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 18:04:56 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 19:19:43 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,6 @@ void			msig_handler(int signo);
 void			psig_handler(int signo);
 int				cd(char **cmd, char **envv_l);
 size_t			count_words(char *str);
+char			**init_tab(void);
+
 #endif

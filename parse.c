@@ -6,17 +6,52 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 18:26:13 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 20:29:58 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
+static char		**lex_var(char *str)
+{
+	char			**split;
+	unsigned int	i;
+	size_t			e;
+
+	i = 0;
+	e = 0;
+
+	split = init_tab();
+	while (str[e] != '$')
+		e++;
+	if (e)
+		split = ft_realloc_tab(split, ft_strsub(str, i, e));
+	while (str[i])
+	{
+		i = ++e;
+		while (((str[e] > 64 && str[e] < 91) || (str[e] > 96 && str[e] < 123)) && str[e])
+			e++;
+		if (str[i - 1] == '$')
+			i--;
+		split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
+	}
+	return (split);
+}
+
+static char		*expand_vars(char *str, char **env)
+{
+	char **split;
+
+	split = lex_var(str);
+	test_getinp(split);
+	return (ft_strdup("dollar\n"));
+}
+
 static char		*expand_tilde(char *str, char *home)
 {
 	char	*xstr;
-	int		i;
-	int		j;
+	unsigned int	i;
+	unsigned int	j;
 
 	if (!(xstr = malloc(ft_strlen(str) + ft_strlen(home))))
 		exit(EXIT_FAILURE);
@@ -40,7 +75,7 @@ static char		**xpand_args(char **args, char **env, size_t ac)
 	char	**xpnd;
 	int		i;
 
-	if (!(xpnd = malloc(sizeof(char **) * (ac + 1))))
+	if (!(xpnd = malloc(sizeof(xpnd) * (ac + 1))))
 		exit(EXIT_FAILURE);
 	xpnd[ac] = NULL;
 	i = 0;
@@ -48,6 +83,8 @@ static char		**xpand_args(char **args, char **env, size_t ac)
 	{
 		if (args[i][0] == '~' && (!args[i][1] || args[i][1] == '/'))
 			xpnd[i] = expand_tilde(args[i], get_env_var(env, "HOME"));
+		else if (ft_strchr(args[i], '$'))
+			xpnd[i] = expand_vars(args[i], env);
 		else if (!(xpnd[i] = ft_strdup(args[i])))
 			exit(EXIT_FAILURE);
 		i++;

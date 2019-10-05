@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 16:24:51 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/05 19:20:00 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ char	*get_env_var(char **envv_l, char *var_name)
 		roam++;
 	}
 	return (NULL);
+}
+char	**init_tab(void)
+{
+	char **tab;
+
+	if (!(tab = malloc(sizeof(tab) * 2)))
+		exit(EXIT_FAILURE);
+	if (!(tab[0] = ft_strdup("")))
+		exit(EXIT_FAILURE);
+	tab[1] = NULL;
+	return (tab);
 }
 
 char	**split_paths(char *paths_var)
