@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:08:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 18:01:19 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 00:22:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	printenv(char **envv_l)
 	roam = envv_l;
 	if (!envv_l)
 	{
-		ft_putendl("printenv: error.");
+		ft_putendl("minishell: error: empty environement.");
 		return ;
 	}
 	while (*roam)

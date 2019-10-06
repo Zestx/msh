@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/04 19:41:47 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 00:22:55 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int			is_builtin(char **cmd, char ***envv_l)
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "env"))
+	{
 		printenv(*envv_l);
+		return (1);
+	}
 	return (0);
 }
 
@@ -53,11 +56,11 @@ static int	find_binary(char *dirpath, char *binname)
 	while ((de = readdir(dr)))
 		if (!ft_strcmp(binname, de->d_name))
 		{
-			return (1);
 			closedir(dr);
+			return (1);
 		}
-	return (0);
 	closedir(dr);
+	return (0);
 }
 
 static char	*cat_path(char *dir, char *name)
@@ -90,6 +93,8 @@ int			is_binary(char **cmd, char ***envv_l)
 {
 	char	**path_list;
 	char	**roam;
+	char	*var;
+	char	*cat;
 	int		found;
 
 	if (!envv_l || !cmd)
@@ -101,23 +106,32 @@ int			is_binary(char **cmd, char ***envv_l)
 	}
 	else if (ft_strchr(cmd[0], '/'))
 	{
-		execute(cat_path(get_env_var(*envv_l, "HOME"), cmd[0]), cmd, *envv_l);
+		var = get_env_var(*envv_l, "HOME");
+		cat = cat_path(var, cmd[0]);
+		execute(cat, cmd, *envv_l);
+		free(var);
+		free(cat);
 		return (1);
 	}
-	if (!(path_list = split_paths(get_env_var(*envv_l, "PATH"))))
+	var = get_env_var(*envv_l, "PATH");
+	if (!(path_list = split_paths(var)))
 		return (0);
+	free(var);
 	roam = path_list;
 	found = 0;
 	while (*roam)
 	{
 		if (find_binary(*roam, cmd[0]))
 		{
-			execute(cat_path(*roam, cmd[0]), cmd, *envv_l);
+			cat = cat_path(*roam, cmd[0]);
+			execute(cat, cmd, *envv_l);
+			free(cat);
 			found = 1;
 			break ;
 		}
 		roam++;
 	}
+	ft_free_tab2(path_list);
 	return (found);
 }
 
