@@ -6,11 +6,29 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 20:55:35 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/06 21:14:39 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+static char		*glue_arg(char	**split)
+{
+	char	*arg;
+	char 	*tmp;
+	char	**roam;
+
+	arg = ft_strdup("");
+	roam = split;
+	while (*roam)
+	{
+		tmp = arg;
+		arg = ft_strjoin(arg, *roam);
+		free(tmp);
+		roam++;
+	}
+	return (arg);
+}
 
 static char		**get_val(char **split, char **env)
 {
@@ -46,10 +64,10 @@ static char		**lex_var(char *str)
 	e = 0;
 
 	split = init_tab();
-	while (str[e] != '$')
+	while (str[e] && str[e] != '$')
 		e++;
-	if (e)
-		split = ft_realloc_tab(split, ft_strsub(str, i, e));
+	if (e != i)
+		split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
 	while (str[i])
 	{
 		i = ++e;
@@ -58,6 +76,11 @@ static char		**lex_var(char *str)
 		if (str[i - 1] == '$')
 			i--;
 		split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
+		i = e;
+		while (str[e] && str[e] != '$')
+			e++;
+		if (i != e)
+			split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
 	}
 	return (split);
 }
@@ -68,8 +91,7 @@ static char		*expand_vars(char *str, char **env)
 
 	split = lex_var(str);
 	get_val(split, env);
-	test_getinp(split);
-	return (ft_strdup("dollar\n"));
+	return (glue_arg(split));
 }
 
 static char		*expand_tilde(char *str, char *home)
@@ -157,6 +179,5 @@ char			**get_input(char **env)
 		exit(EXIT_FAILURE);
 	args = split_args(args, input_str, ac);
 	args = xpand_args(args, env, ac);
-	test_getinp(args);
 	return (args);
 }
