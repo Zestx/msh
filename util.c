@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/05 19:20:00 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 01:34:58 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ char	*get_env_var(char **envv_l, char *var_name)
 	}
 	return (NULL);
 }
+
 char	**init_tab(void)
 {
-	char **tab;
+	char	**tab;
 
 	if (!(tab = malloc(sizeof(tab) * 2)))
 		exit(EXIT_FAILURE);

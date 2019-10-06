@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/06 23:16:10 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 01:32:39 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	get_tab_size(char **tab)
 	char	**roam;
 
 	if (!tab)
-	return (0);
+		return (0);
 	roam = tab;
 	size = 0;
 	while (*roam)
@@ -65,13 +65,7 @@ char	**get_env(char **environ)
 	return (envv_l);
 }
 
-void		psig_handler(int signo)
-{
-	if (signo == SIGINT)
-		ft_putstr("\n");
-}
-
-void		msig_handler(int signo)
+void	msig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{

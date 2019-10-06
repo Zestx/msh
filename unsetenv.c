@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:07:50 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/16 18:15:56 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 01:33:27 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_envv(char *var, char **envv_l)
 	return (0);
 }
 
-static char **remove_var(char *var, char **envv_l)
+static char	**remove_var(char *var, char **envv_l)
 {
 	char **upd_tab;
 	char **roam_n;
@@ -71,4 +71,3 @@ char		**unset_env(char **cmd, char ***envv_l)
 	}
 	return (*envv_l);
 }
-
