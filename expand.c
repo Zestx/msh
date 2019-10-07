@@ -43,14 +43,17 @@ static char	**get_val(char **split, char **env)
 	{
 		if (*roam[0] == '$' && ft_strcmp(*roam, "$"))
 		{
-			free(*roam);
 			if (!(tmp = get_env_var(env, (*roam) + 1)))
 			{
+				free(*roam);
 				if (!(*roam = ft_strdup("")))
 					exit(EXIT_FAILURE);
 			}
 			else if (!(*roam = ft_strdup(tmp)))
+			{
 				exit(EXIT_FAILURE);
+				free(*roam);
+			}
 			free(tmp);
 		}
 		roam++;
@@ -83,7 +86,7 @@ static char	**lex_var(char *str)
 		if (i != e)
 		{
 			tmp = ft_strsub(str, i, e - i);
-			split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
+			split = ft_realloc_tab(split, tmp);
 			free(tmp);
 		}
 		if (str[e])
