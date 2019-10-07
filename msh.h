@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 04:19:57 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 06:15:44 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ void			test_getinp(char **input);
 void			test_splits(char **paths);
 void			msig_handler(int signo);
 void			psig_handler(int signo);
-void			cd(char **cmd, char **envv_l);
+void			cd(char **cmd, char ***envv_l);
 size_t			count_words(char *str);
 char			**init_tab(void);
 char			*expand_vars(char *str, char **env);
 char			*expand_tilde(char *str, char *home);
+void			update_pwd(char ***env, char *var, char *value);
 
 #endif

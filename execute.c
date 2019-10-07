@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:57:14 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 06:02:41 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			is_builtin(char **cmd, char ***envv_l)
 		ft_putendl("builtin command!");
 	if (!ft_strcmp(cmd[0], "cd"))
 	{
-		cd(cmd, *envv_l);
+		cd(cmd, envv_l);
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "env"))

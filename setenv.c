@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:23:21 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 04:32:05 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 05:46:03 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ char	**set_env(char **cmd, char ***envv_l)
 	if (!cmd[2] || cmd[3])
 	{
 		ft_putendl("usage: setenv [VAR] [VALUE]");
-		return (NULL);
+		return (*envv_l);
 	}
 	if (replace_env(cmd, *envv_l) == 1)
 		return (*envv_l);
-	if (replace_env(cmd, *envv_l) < 0)
-		return (NULL);
-	if (replace_env(cmd, *envv_l) == 0)
+	else
 		*envv_l = ft_realloc_tab(*envv_l, set_var(NULL, cmd[1], cmd[2]));
 	return (*envv_l);
 }
@@ -42,7 +40,7 @@ int		replace_env(char **cmd, char **envv_l)
 	{
 		if (env_match(cmd[1], *roam))
 		{
-			*roam = set_var(*roam, cmd[1], cmd[2])
+			*roam = set_var(*roam, cmd[1], cmd[2]);
 			return (1);
 		}
 		roam++;

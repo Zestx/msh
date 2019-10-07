@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 04:18:44 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 06:15:47 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ size_t	count_words(char *str)
 		}
 	}
 	return (count);
+}
+
+void	update_pwd(char ***env, char *var, char *value)
+{
+	char	**roam;
+
+	roam = *env;
+	while (*roam)
+	{
+		if (env_match(var, *roam))
+			*roam = set_var(*roam, var, value);
+		roam++;
+	}
 }
