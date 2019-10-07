@@ -13,23 +13,30 @@
 #include "libft.h"
 #include <stdio.h>
 
+static size_t	get_size(char **tab)
+{
+	size_t	size;
+	char	**ptr;
+
+	ptr = tab;
+	size = 0;
+	while(*ptr)
+	{
+		size++;
+		ptr++;
+	}
+	return (size + 2);
+}
+
 char	**ft_realloc_tab(char **old_tab, char *new_entry)
 {
-	int		count;
 	char	**new_tab;
 	char	**roam_o;
 	char	**roam_n;
 
 	if (!new_entry)
 		return (NULL);
-	count = 0;
-	roam_o = old_tab;
-	while (*roam_o)
-	{
-		count++;
-		roam_o++;
-	}
-	if (!(new_tab = malloc(sizeof(new_tab) * (count + 2))))
+	if (!(new_tab = malloc(sizeof(new_tab) * get_size(old_tab))))
 		exit(EXIT_FAILURE);
 	roam_n = new_tab;
 	roam_o = old_tab;
@@ -41,7 +48,7 @@ char	**ft_realloc_tab(char **old_tab, char *new_entry)
 		roam_n++;
 	}
 	if (!(*roam_n = ft_strdup(new_entry)))
-			return (NULL);
+			exit(EXIT_FAILURE);
 	*(++roam_n) = NULL;
 	ft_free_tab2(old_tab);
 	return (new_tab);

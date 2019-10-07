@@ -14,6 +14,8 @@
 
 char	**set_env(char **cmd, char ***env)
 {
+	char	*tmp;
+
 	if (!cmd[1])
 	{
 		printenv(*env);
@@ -27,7 +29,11 @@ char	**set_env(char **cmd, char ***env)
 	if (replace_env(cmd, *env) == 1)
 		return (*env);
 	else
-		*env = ft_realloc_tab(*env, set_var(NULL, cmd[1], cmd[2]));
+	{
+		tmp = set_var(NULL, cmd[1], cmd[2]);
+		*env = ft_realloc_tab(*env, tmp);
+		free(tmp);
+	}
 	return (*env);
 }
 

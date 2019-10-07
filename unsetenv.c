@@ -35,7 +35,7 @@ static char	**remove_var(char *var, char **env)
 	if (!(upd_tab = malloc(sizeof(upd_tab) * get_tab_size(env))))
 		exit(EXIT_FAILURE);
 	roam_n = upd_tab;
-	roam_o = envv_l;
+	roam_o = env;
 	while (*roam_o)
 	{
 		if (ft_strncmp(*roam_o, var, ft_strlen(var)))
