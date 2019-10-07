@@ -44,6 +44,8 @@ static void	chdir_home(char ***env)
 		free(tmp);
 		update_pwd(env, "PWD", home);
 	}
+	if (home)
+		free(home);
 }
 
 static void	chdir_oldpwd(char ***env)
@@ -62,6 +64,8 @@ static void	chdir_oldpwd(char ***env)
 		free(tmp);
 		update_pwd(env, "PWD", oldpwd);
 	}
+	if (oldpwd)
+		free(oldpwd);
 }
 
 static void	chdir_arg(char *path, char ***env)

@@ -94,6 +94,7 @@ int		main(void)
 		}
 		if (dispatch(input, &envv_l) < 0)
 			break ;
+		ft_free_tab2(input);
 	}
 	ft_free_tab2(envv_l);
 	ft_free_tab2(input);

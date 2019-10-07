@@ -61,6 +61,7 @@ static char	**get_val(char **split, char **env)
 static char	**lex_var(char *str)
 {
 	char			**split;
+	char			*tmp;
 	unsigned int	i;
 	size_t			e;
 
@@ -73,12 +74,18 @@ static char	**lex_var(char *str)
 			e++;
 		if (i && str[i - 1] == '$')
 			i--;
-		split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
+		tmp = ft_strsub(str, i, e - i);
+		split = ft_realloc_tab(split, tmp);
+		free(tmp);
 		i = e;
 		while (str[e] && str[e] != '$')
 			e++;
 		if (i != e)
+		{
+			tmp = ft_strsub(str, i, e - i);
 			split = ft_realloc_tab(split, ft_strsub(str, i, e - i));
+			free(tmp);
+		}
 		if (str[e])
 			i = ++e;
 	}
