@@ -9,3 +9,14 @@
 #    Updated: 2019/10/07 01:55:55 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+1. UPDATE ENVIRONEMENT
+	At the start of the shell, we should update at least two variables:
+	- SHLVL: Must be incremented by 1. If it's not a number, it is set to 0.
+	- SHELL: Should be set to the path of the minishell executable.
+
+2. EXTENSIVE TESTING
+	- Look for bugs, crashs, unhandled errors.
+	- Look for leaks, double-free, conditional jump on unintialized values...
+	- Check if all allocations are protected.
+	- Check if all error case are managed.
