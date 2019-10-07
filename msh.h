@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:15:44 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 06:22:49 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ char			**init_tab(void);
 char			*expand_vars(char *str, char **env);
 char			*expand_tilde(char *str, char *home);
 void			update_pwd(char ***env, char *var, char *value);
+void			echo(char **cmd);
 
 #endif
