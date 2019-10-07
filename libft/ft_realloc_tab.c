@@ -30,19 +30,19 @@ char	**ft_realloc_tab(char **old_tab, char *new_entry)
 		roam_o++;
 	}
 	if (!(new_tab = malloc(sizeof(new_tab) * (count + 2))))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	roam_n = new_tab;
 	roam_o = old_tab;
 	while (*roam_o)
 	{
 		if (!(*roam_n = ft_strdup(*roam_o)))
-			return (NULL);
+			exit(EXIT_FAILURE);
 		roam_o++;
 		roam_n++;
 	}
 	if (!(*roam_n = ft_strdup(new_entry)))
 			return (NULL);
-	new_tab[count + 1] = NULL;
+	*(++roam_n) = NULL;
 	ft_free_tab2(old_tab);
 	return (new_tab);
 }

@@ -12,16 +12,16 @@
 
 #include "msh.h"
 
-void	printenv(char **envv_l)
+void	printenv(char **env)
 {
 	char	**roam;
 
-	roam = envv_l;
-	if (!envv_l)
+	if (!env)
 	{
 		ft_putendl("minishell: error: empty environement.");
 		return ;
 	}
+	roam = env;
 	while (*roam)
 	{
 		ft_putendl(*roam);

@@ -48,21 +48,23 @@ size_t	get_tab_size(char **tab)
 
 char	**get_env(char **environ)
 {
-	char	**envv_l;
-	char	**roam;
+	char	**copy;
+	char	**env_ptr;
+	char	**cpy_ptr;
 
-	if (!(envv_l = malloc(sizeof(environ) * get_tab_size(environ) + 1)))
+	if (!(copy = malloc(sizeof(copy) * (get_tab_size(environ) + 1))))
 		exit(EXIT_FAILURE);
-	roam = envv_l;
-	while (*environ)
+	env_ptr = environ;
+	cpy_ptr = copy;
+	while (*env_ptr)
 	{
-		if (!(*roam = ft_strdup(*environ)))
+		if (!(*cpy_ptr = ft_strdup(*env_ptr)))
 			exit(EXIT_FAILURE);
-		environ++;
-		roam++;
+		cpy_ptr++;
+		env_ptr++;
 	}
-	roam = NULL;
-	return (envv_l);
+	*cpy_ptr = NULL;
+	return (copy);
 }
 
 void	msig_handler(int signo)
@@ -86,7 +88,11 @@ static int	init_pwd(t_pwd *pwd)
 		exit(EXIT_FAILURE);
 	return (1);
 }
-
+static void	free_pwd(t_pwd *pwd)
+{
+	free(pwd->cwd);
+	free(pwd->owd);
+}
 int		main(void)
 {
 	extern char **environ;
@@ -109,10 +115,13 @@ int		main(void)
 			continue ;
 		}
 		if (dispatch(input, &env, &pwd) < 0)
+		{
+			ft_free_tab2(input);
 			break ;
+		}
 		ft_free_tab2(input);
 	}
+	free_pwd(&pwd);
 	ft_free_tab2(env);
-	ft_free_tab2(input);
 	return (0);
 }

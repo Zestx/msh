@@ -45,7 +45,7 @@ static char	**remove_var(char *var, char **envv_l)
 		roam_o++;
 	}
 	*roam_n = NULL;
-	printenv(upd_tab);
+	ft_free_tab2(envv_l);
 	return (upd_tab);
 }
 
