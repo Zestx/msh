@@ -39,9 +39,7 @@ void	echo(char **cmd)
 	n = 0;
 	a = 0;
 	f = 0;
-	if (*(cmd + 1))
-	{
-		roam = cmd + 1;
+	if (*(cmd + 1) && (roam = cmd + 1))
 		while (*roam)
 		{
 			if (is_nopt(*roam) && !a)
@@ -52,11 +50,10 @@ void	echo(char **cmd)
 					ft_putchar(' ');
 				ft_putstr(*roam);
 				a = 1;
+				f = 1;
 			}
 			roam++;
-			f = 1;
 		}
-	}
 	if (!n)
 		ft_putchar('\n');
 }
