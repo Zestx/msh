@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:23:21 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/05/17 17:01:48 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 04:32:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int		replace_env(char **cmd, char **envv_l)
 	{
 		if (env_match(cmd[1], *roam))
 		{
-			if (!(*roam = set_var(*roam, cmd[1], cmd[2])))
-				return (-1);
+			*roam = set_var(*roam, cmd[1], cmd[2])
 			return (1);
 		}
 		roam++;
@@ -71,7 +70,7 @@ char	*set_var(char *to_set, char *name, char *value)
 	if (to_set)
 		free(to_set);
 	if (!(new_var = malloc(ft_strlen(name) + ft_strlen(value) + 2)))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	i = 0;
 	while (name[i])
 	{

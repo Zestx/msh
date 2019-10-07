@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:07:50 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:33:27 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 04:25:48 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char		**unset_env(char **cmd, char ***envv_l)
 	{
 		if (is_envv(*roam, *envv_l))
 		{
-			printf("ISENV\n");
 			if (!(*envv_l = remove_var(*roam, *envv_l)))
 				return (NULL);
 		}

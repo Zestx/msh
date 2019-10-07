@@ -6,29 +6,71 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 18:30:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:29:23 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 04:33:30 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int		cd(char **cmd, char **envv_l)
+static void	dir_access(char *path)
 {
-	if (cmd[1] && cmd[2])
-	{
-		ft_putendl("usage: cd <directory>");
-		return (1);
-	}
-	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][2]))
-		chdir(get_env_var(envv_l, "HOME"));
-	else if (chdir(cmd[1]))
-	{
-		if (access(cmd[1], F_OK))
-			ft_putstr("cd: no such file or directory: ");
-		else if (access(cmd[1], R_OK))
-			ft_putstr("cd: permission denied: ");
-		else
-			ft_putstr("cd: not a directory: ");
-	}
-	return (1);
+	struct stat st;
+
+	ft_putstr("minishell: cd: ");
+	ft_putstr(path);
+	if (access(path, F_OK))
+		ft_putstr("no such file or directory\n");
+	else if (access(path, R_OK))
+		ft_putstr("permission denied\n");
+	else if (!lstat(path, &st) && !S_ISDIR(st.st_mode))
+		ft_putstr("not a directory\n");
+	else
+		ft_putstr("unidentified error\n");
 }
+
+static void	chdir_home(char ***env)
+{
+	char	*home;
+	char	**roam;
+
+	if (!(home = get_env_var(*env, "HOME")))
+		ft_putstr("minishell: cd: HOME not set\n");
+	else if (chdir(home))
+		dir_access(home);
+	else
+	{
+	}
+}
+
+static void	chdir_oldpwd(char ***env)
+{
+	char *oldpwd;
+
+	if (!(oldpwd = get_env_var(*env, "OLDPWD")))
+		ft_putstr("minishell: cd: OLDPWD not set\n");
+	else if (chdir(oldpwd))
+		dir_access(oldpwd);
+	else
+	{
+	}
+}
+
+static void	chdir_arg(char *path)
+{
+	if (chdir(path))
+		dir_access(path);
+	else
+	{
+	}
+}
+
+void		cd(char **cmd, char **env)
+{
+	if (!cmd[1] || !ft_strcmp(cmd[1], "--"))
+		chdir_home(&env);
+	else if (!ft_strcmp(cmd[1], "-"))
+		chdir_oldpwd(&env);
+	else
+		chdir_arg(cmd[1]);
+}
+

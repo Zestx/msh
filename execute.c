@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:35:40 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/07 01:57:14 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int			is_builtin(char **cmd, char ***envv_l)
 		cd(cmd, *envv_l);
 		return (1);
 	}
-	if (!ft_strcmp(cmd[0], "exit"))
-		return (-1);
+	if (!ft_strcmp(cmd[0], "env"))
+	{
+		printenv(*envv_l);
+		return (1);
+	}
 	if (!ft_strcmp(cmd[0], "setenv"))
 	{
 		if (!(*envv_l = set_env(cmd, envv_l)))
@@ -35,11 +38,8 @@ int			is_builtin(char **cmd, char ***envv_l)
 			return (0);
 		return (1);
 	}
-	if (!ft_strcmp(cmd[0], "env"))
-	{
-		printenv(*envv_l);
-		return (1);
-	}
+	if (!ft_strcmp(cmd[0], "exit"))
+		return (-1);
 	return (0);
 }
 
