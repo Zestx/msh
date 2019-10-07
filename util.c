@@ -12,17 +12,17 @@
 
 #include "msh.h"
 
-char	*get_env_var(char **envv_l, char *var_name)
+char	*get_env_var(char **env, char *var_name)
 {
 	char	*var_content;
 	char	**roam;
 	size_t	var_len;
 
-	if (!envv_l || !*envv_l || !var_name)
+	if (!env || !*env || !var_name)
 		return (NULL);
 	var_len = 0;
 	var_len = ft_strlen(var_name);
-	roam = envv_l;
+	roam = env;
 	while (*roam)
 	{
 		if (!ft_strncmp(*roam, var_name, var_len))

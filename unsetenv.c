@@ -12,11 +12,11 @@
 
 #include "msh.h"
 
-static int	is_envv(char *var, char **envv_l)
+static int	is_envv(char *var, char **env)
 {
 	char **roam;
 
-	roam = envv_l;
+	roam = env;
 	while (*roam)
 	{
 		if (!ft_strncmp(*roam, var, ft_strlen(var)))
@@ -26,13 +26,14 @@ static int	is_envv(char *var, char **envv_l)
 	return (0);
 }
 
-static char	**remove_var(char *var, char **envv_l)
+static char	**remove_var(char *var, char **env)
 {
 	char **upd_tab;
 	char **roam_n;
 	char **roam_o;
 
-	upd_tab = malloc(sizeof(upd_tab) * get_tab_size(envv_l));
+	if (!(upd_tab = malloc(sizeof(upd_tab) * get_tab_size(env))))
+		exit(EXIT_FAILURE);
 	roam_n = upd_tab;
 	roam_o = envv_l;
 	while (*roam_o)
@@ -45,28 +46,25 @@ static char	**remove_var(char *var, char **envv_l)
 		roam_o++;
 	}
 	*roam_n = NULL;
-	ft_free_tab2(envv_l);
+	ft_free_tab2(env);
 	return (upd_tab);
 }
 
-char		**unset_env(char **cmd, char ***envv_l)
+char		**unset_env(char **cmd, char ***env)
 {
 	char **roam;
 
 	if (!cmd[1])
 	{
-		ft_putendl("too few arguments");
-		return (*envv_l);
+		ft_putendl("minishell: unsetenv: too few arguments");
+		return (*env);
 	}
 	roam = cmd + 1;
 	while (*roam)
 	{
-		if (is_envv(*roam, *envv_l))
-		{
-			if (!(*envv_l = remove_var(*roam, *envv_l)))
-				return (NULL);
-		}
+		if (is_envv(*roam, *env))
+			*env = remove_var(*roam, *env);
 		roam++;
 	}
-	return (*envv_l);
+	return (*env);
 }

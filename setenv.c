@@ -12,30 +12,30 @@
 
 #include "msh.h"
 
-char	**set_env(char **cmd, char ***envv_l)
+char	**set_env(char **cmd, char ***env)
 {
 	if (!cmd[1])
 	{
-		printenv(*envv_l);
-		return (*envv_l);
+		printenv(*env);
+		return (*env);
 	}
 	if (!cmd[2] || cmd[3])
 	{
 		ft_putendl("usage: setenv [VAR] [VALUE]");
-		return (*envv_l);
+		return (*env);
 	}
-	if (replace_env(cmd, *envv_l) == 1)
-		return (*envv_l);
+	if (replace_env(cmd, *env) == 1)
+		return (*env);
 	else
-		*envv_l = ft_realloc_tab(*envv_l, set_var(NULL, cmd[1], cmd[2]));
-	return (*envv_l);
+		*env = ft_realloc_tab(*env, set_var(NULL, cmd[1], cmd[2]));
+	return (*env);
 }
 
-int		replace_env(char **cmd, char **envv_l)
+int		replace_env(char **cmd, char **env)
 {
 	char	**roam;
 
-	roam = envv_l;
+	roam = env;
 	while (*roam)
 	{
 		if (env_match(cmd[1], *roam))

@@ -12,38 +12,23 @@
 
 #include "msh.h"
 
-int			is_builtin(char **cmd, char ***envv_l, t_pwd *pwd)
+int			is_builtin(char **cmd, char ***env, t_pwd *pwd)
 {
 	if (!ft_strcmp(cmd[0], "exit"))
 		return (-1);
-	if (!ft_strcmp(cmd[0], "echo"))
-	{
+	else if (!ft_strcmp(cmd[0], "echo"))
 		echo(cmd);
-		return (1);
-	}
-	if (!ft_strcmp(cmd[0], "cd"))
-	{
-		cd(cmd, envv_l, pwd);
-		return (1);
-	}
-	if (!ft_strcmp(cmd[0], "env"))
-	{
-		printenv(*envv_l);
-		return (1);
-	}
-	if (!ft_strcmp(cmd[0], "setenv"))
-	{
-		if (!(*envv_l = set_env(cmd, envv_l)))
-			return (0);
-		return (1);
-	}
-	if (!ft_strcmp(cmd[0], "unsetenv"))
-	{
-		if (!(*envv_l = unset_env(cmd, envv_l)))
-			return (0);
-		return (1);
-	}
-	return (0);
+	else if (!ft_strcmp(cmd[0], "cd"))
+		cd(cmd, env, pwd);
+	else if (!ft_strcmp(cmd[0], "env"))
+		printenv(*env);
+	else if (!ft_strcmp(cmd[0], "setenv"))
+		*env = set_env(cmd, env);
+	else if (!ft_strcmp(cmd[0], "unsetenv"))
+		*env = unset_env(cmd, env);
+	else
+		return (0);
+	return (1);
 }
 
 static int	find_binary(char *dirpath, char *binname)
@@ -92,7 +77,7 @@ static char	*cat_path(char *dir, char *name)
 	return (full_path);
 }
 
-int			is_binary(char **cmd, char ***envv_l)
+int			is_binary(char **cmd, char ***env)
 {
 	char	**path_list;
 	char	**roam;
@@ -100,23 +85,23 @@ int			is_binary(char **cmd, char ***envv_l)
 	char	*cat;
 	int		found;
 
-	if (!envv_l || !cmd)
+	if (!env || !cmd)
 		return (0);
 	if (cmd[0][0] == '/')
 	{
-		execute(cmd[0], cmd, *envv_l);
+		execute(cmd[0], cmd, *env);
 		return (1);
 	}
 	else if (ft_strchr(cmd[0], '/'))
 	{
-		var = get_env_var(*envv_l, "HOME");
+		var = get_env_var(*env, "HOME");
 		cat = cat_path(var, cmd[0]);
-		execute(cat, cmd, *envv_l);
+		execute(cat, cmd, *env);
 		free(var);
 		free(cat);
 		return (1);
 	}
-	var = get_env_var(*envv_l, "PATH");
+	var = get_env_var(*env, "PATH");
 	if (!(path_list = split_paths(var)))
 		return (0);
 	free(var);
@@ -127,7 +112,7 @@ int			is_binary(char **cmd, char ***envv_l)
 		if (find_binary(*roam, cmd[0]))
 		{
 			cat = cat_path(*roam, cmd[0]);
-			execute(cat, cmd, *envv_l);
+			execute(cat, cmd, *env);
 			free(cat);
 			found = 1;
 			break ;
@@ -138,7 +123,7 @@ int			is_binary(char **cmd, char ***envv_l)
 	return (found);
 }
 
-int			execute(char *path, char **cmd, char **envv_l)
+int			execute(char *path, char **cmd, char **env)
 {
 	pid_t		pid;
 	struct stat	st_buff;
@@ -151,7 +136,7 @@ int			execute(char *path, char **cmd, char **envv_l)
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(path, cmd, envv_l);
+			execve(path, cmd, env);
 			exit(EXIT_SUCCESS);
 		}
 		if (pid > 0)

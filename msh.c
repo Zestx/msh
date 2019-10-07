@@ -12,15 +12,15 @@
 
 #include "msh.h"
 
-int		dispatch(char **input, char ***envv_l, t_pwd *pwd)
+int		dispatch(char **input, char ***env, t_pwd *pwd)
 {
 	int ret;
 
-	ret = is_builtin(input, envv_l, pwd);
+	ret = is_builtin(input, env, pwd);
 	if (ret < 0)
 		return (-1);
 	if (ret == 0)
-		if (!is_binary(input, envv_l))
+		if (!is_binary(input, env))
 		{
 			ft_putstr("msh: command not found: ");
 			ft_putendl(input[0]);
@@ -88,11 +88,13 @@ static int	init_pwd(t_pwd *pwd)
 		exit(EXIT_FAILURE);
 	return (1);
 }
+
 static void	free_pwd(t_pwd *pwd)
 {
 	free(pwd->cwd);
 	free(pwd->owd);
 }
+
 int		main(void)
 {
 	extern char **environ;
