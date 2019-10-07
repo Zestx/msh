@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-int			is_builtin(char **cmd, char ***envv_l)
+int			is_builtin(char **cmd, char ***envv_l, t_pwd *pwd)
 {
 	if (!ft_strcmp(cmd[0], "exit"))
 		return (-1);
@@ -23,7 +23,7 @@ int			is_builtin(char **cmd, char ***envv_l)
 	}
 	if (!ft_strcmp(cmd[0], "cd"))
 	{
-		cd(cmd, envv_l);
+		cd(cmd, envv_l, pwd);
 		return (1);
 	}
 	if (!ft_strcmp(cmd[0], "env"))

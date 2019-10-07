@@ -14,7 +14,7 @@
 
 void		prompt(void)
 {
-	char cwd_buff[1000];
+	char cwd_buff[PATH_MAX + 1];
 
 	ft_putstr("usr");
 	ft_putstr(CYAN);
@@ -22,7 +22,7 @@ void		prompt(void)
 	ft_putstr(RESET);
 	ft_putstr("computer");
 	ft_putstr(MAG);
-	ft_putstr(getcwd(cwd_buff, 999));
+	ft_putstr(getcwd(cwd_buff, PATH_MAX + 1));
 	ft_putstr(RESET);
 	ft_putstr("> ");
 }

@@ -28,7 +28,7 @@ static void	dir_access(char *path)
 		ft_putstr(": unidentified error\n");
 }
 
-static void	chdir_home(char ***env)
+static void	chdir_home(char ***env, t_pwd *pwd)
 {
 	char	*home;
 	char	*tmp;
@@ -39,36 +39,37 @@ static void	chdir_home(char ***env)
 		dir_access(home);
 	else
 	{
-		tmp = get_env_var(*env, "PWD");
-		update_pwd(env, "OLDPWD", tmp);
-		free(tmp);
+		if ((tmp = get_env_var(*env, "PWD")))
+		{
+			update_pwd(env, "OLDPWD", tmp);
+			free(tmp);
+		}
 		update_pwd(env, "PWD", home);
+		update_s_pwd(pwd);
 	}
 	if (home)
 		free(home);
 }
 
-static void	chdir_oldpwd(char ***env)
+static void	chdir_oldpwd(char ***env, t_pwd *pwd)
 {
-	char	*oldpwd;
 	char	*tmp;
 
-	if (!(oldpwd = get_env_var(*env, "OLDPWD")))
-		ft_putstr("minishell: cd: OLDPWD not set\n");
-	else if (chdir(oldpwd))
-		dir_access(oldpwd);
+	if (chdir(pwd->owd))
+		dir_access(pwd->owd);
 	else
 	{
-		tmp = get_env_var(*env, "PWD");
-		update_pwd(env, "OLDPWD", tmp);
-		free(tmp);
-		update_pwd(env, "PWD", oldpwd);
+		if ((tmp = get_env_var(*env, "PWD")))
+		{
+			update_pwd(env, "OLDPWD", tmp);
+			free(tmp);
+		}
+		update_pwd(env, "PWD", pwd->owd);
+		update_s_pwd(pwd);
 	}
-	if (oldpwd)
-		free(oldpwd);
 }
 
-static void	chdir_arg(char *path, char ***env)
+static void	chdir_arg(char *path, char ***env, t_pwd *pwd)
 {
 	char	*tmp;
 
@@ -76,19 +77,22 @@ static void	chdir_arg(char *path, char ***env)
 		dir_access(path);
 	else
 	{
-		tmp = get_env_var(*env, "PWD");
-		update_pwd(env, "OLDPWD", tmp);
-		free(tmp);
+		if ((tmp = get_env_var(*env, "PWD")))
+		{
+			update_pwd(env, "OLDPWD", tmp);
+			free(tmp);
+		}
 		update_pwd(env, "PWD", path);
+		update_s_pwd(pwd);
 	}
 }
 
-void		cd(char **cmd, char ***env)
+void		cd(char **cmd, char ***env, t_pwd *pwd)
 {
 	if (!cmd[1] || !ft_strcmp(cmd[1], "--"))
-		chdir_home(env);
+		chdir_home(env, pwd);
 	else if (!ft_strcmp(cmd[1], "-"))
-		chdir_oldpwd(env);
+		chdir_oldpwd(env, pwd);
 	else
-		chdir_arg(cmd[1], env);
+		chdir_arg(cmd[1], env, pwd);
 }

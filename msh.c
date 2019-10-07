@@ -12,11 +12,11 @@
 
 #include "msh.h"
 
-int		dispatch(char **input, char ***envv_l)
+int		dispatch(char **input, char ***envv_l, t_pwd *pwd)
 {
 	int ret;
 
-	ret = is_builtin(input, envv_l);
+	ret = is_builtin(input, envv_l, pwd);
 	if (ret < 0)
 		return (-1);
 	if (ret == 0)
@@ -74,29 +74,45 @@ void	msig_handler(int signo)
 	}
 }
 
+static int	init_pwd(t_pwd *pwd)
+{
+	char tmp[PATH_MAX + 1];
+
+	if (!(getcwd(tmp, PATH_MAX + 1)))
+		return (0);
+	if (!(pwd->cwd = ft_strdup(tmp)))
+		exit(EXIT_FAILURE);
+	if (!(pwd->owd = ft_strdup(tmp)))
+		exit(EXIT_FAILURE);
+	return (1);
+}
+
 int		main(void)
 {
 	extern char **environ;
-	char		**envv_l;
+	char		**env;
 	char		**input;
+	t_pwd		pwd;
 
+	if (!init_pwd(&pwd))
+		exit(EXIT_FAILURE);
 	signal(SIGINT, msig_handler);
-	if (!(envv_l = get_env(environ)))
+	if (!(env = get_env(environ)))
 		return (1);
 	title();
 	while (1)
 	{
-		input = get_input(envv_l);
+		input = get_input(env);
 		if (!input || !input[0])
 		{
 			ft_free_tab2(input);
 			continue ;
 		}
-		if (dispatch(input, &envv_l) < 0)
+		if (dispatch(input, &env, &pwd) < 0)
 			break ;
 		ft_free_tab2(input);
 	}
-	ft_free_tab2(envv_l);
+	ft_free_tab2(env);
 	ft_free_tab2(input);
 	return (0);
 }
