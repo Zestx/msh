@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:23:21 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 18:44:55 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:18:38 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ char	**set_env(char **cmd, char ***env)
 		printenv(*env);
 		return (*env);
 	}
-	if (!cmd[2] || cmd[3])
+	if (cmd[2] && cmd[3])
 	{
-		ft_putendl("usage: setenv [VAR] [VALUE]");
+		ft_putendl("minishell: setenv: too many arguments.");
 		return (*env);
 	}
 	if (replace_env(cmd, *env) == 1)
 		return (*env);
 	else
 	{
-		tmp = set_var(NULL, cmd[1], cmd[2]);
+		if (cmd[2])
+			tmp = set_var(NULL, cmd[1], cmd[2]);
+		else
+			tmp = set_var(NULL, cmd[1], "");
 		*env = ft_realloc_tab(*env, tmp);
 		free(tmp);
 	}
@@ -46,7 +49,10 @@ int		replace_env(char **cmd, char **env)
 	{
 		if (env_match(cmd[1], *roam))
 		{
-			*roam = set_var(*roam, cmd[1], cmd[2]);
+			if (cmd[2])
+				*roam = set_var(*roam, cmd[1], cmd[2]);
+			else
+				*roam = set_var(*roam, cmd[1], "");
 			return (1);
 		}
 		roam++;

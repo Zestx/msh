@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 19:00:58 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:02:15 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int			is_binary(char **cmd, char ***env)
 		return (0);
 	if (ft_strchr(cmd[0], '/'))
 	{
-		execute(cmd[0], cmd, *env);
+		if (!(execute(cmd[0], cmd, *env)))
+			return (0);
 		return (1);
 	}
 	if (!(var = get_env_var(*env, "PATH")))

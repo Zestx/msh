@@ -6,7 +6,7 @@
 #    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/24 17:44:40 by qbackaer          #+#    #+#              #
-#    Updated: 2019/10/08 19:09:22 by qbackaer         ###   ########.fr        #
+#    Updated: 2019/10/08 19:53:02 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,3 +37,5 @@ fclean: clean
 	rm -rf msh
 
 re: fclean all
+
+.PHONY: re fclean clean all

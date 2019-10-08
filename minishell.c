@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 18:59:16 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:12:14 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int			dispatch(char **input, char ***env, t_pwd *pwd)
 		ret = is_binary(input, env);
 		if (ret == 0)
 		{
-			ft_putstr("msh: command not found: ");
+			if (ft_strcmp(input[0], ""))
+			{
+				ft_putstr("msh: ");
+				ft_putstr(input[0]);
+				ft_putstr(": command not found.\n");
+			}
 			return (0);
 		}
 		if (ret == -1)
