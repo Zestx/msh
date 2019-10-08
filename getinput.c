@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 19:29:45 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:44:00 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static char		**expand_args(char **args, char **env, size_t ac)
 	char	*tmp;
 	int		i;
 
+	i = 0;
 	if (!(xpnd = malloc(sizeof(xpnd) * (ac + 1))))
 		exit(EXIT_FAILURE);
 	xpnd[ac] = NULL;
-	i = 0;
 	while (args[i])
 	{
 		if (args[i][0] == '~' && (!args[i][1] || args[i][1] == '/'))
@@ -34,9 +34,9 @@ static char		**expand_args(char **args, char **env, size_t ac)
 			else if ((xpnd[i] = expand_tilde(args[i], tmp)))
 				free(tmp);
 		}
-		else if (ft_strchr(args[i], '$'))
+		if (ft_strchr(args[i], '$'))
 			xpnd[i] = expand_vars(args[i], env);
-		else if (!(xpnd[i] = ft_strdup(args[i])))
+		else if(!(xpnd[i] = ft_strdup(args[i])))
 			exit(EXIT_FAILURE);
 		i++;
 	}

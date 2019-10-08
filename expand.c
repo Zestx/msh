@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 01:45:36 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 20:19:52 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:27:02 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,19 @@ static char	**get_val(char **split, char **env)
 	return (NULL);
 }
 
+static void	realloc_sub(char *str, char ***split, unsigned int i, size_t e)
+{
+	char *tmp;
+		
+	if (!(tmp = ft_strsub(str, i, e - i)))
+		exit(EXIT_FAILURE);
+	*split = ft_realloc_tab(*split, tmp);
+	free(tmp);
+}
+
 static char	**lex_var(char *str)
 {
 	char			**split;
-	char			*tmp;
 	unsigned int	i;
 	size_t			e;
 
@@ -78,18 +87,12 @@ static char	**lex_var(char *str)
 			e++;
 		if (i && str[i - 1] == '$')
 			i--;
-		tmp = ft_strsub(str, i, e - i);
-		split = ft_realloc_tab(split, tmp);
-		free(tmp);
+		realloc_sub(str, &split, i, e);
 		i = e;
 		while (str[e] && str[e] != '$')
 			e++;
 		if (i != e)
-		{
-			tmp = ft_strsub(str, i, e - i);
-			split = ft_realloc_tab(split, tmp);
-			free(tmp);
-		}
+			realloc_sub(str, &split, i, e);
 		if (str[e])
 			i = ++e;
 	}
