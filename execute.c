@@ -58,7 +58,7 @@ static char	*cat_path(char *dir, char *name)
 	int		j;
 
 	if (!(full_path = malloc(ft_strlen(dir) + ft_strlen(name) + 2)))
-		return (NULL);
+		exit(EXIT_FAILURE);
 	i = 0;
 	while (dir[i])
 	{
@@ -77,49 +77,52 @@ static char	*cat_path(char *dir, char *name)
 	return (full_path);
 }
 
+static int		execute_name(char **path_tab, char **cmd, char **env)
+{
+	char	**pt_ptr;
+	char	*path;
+	int	found;
+
+	found = 0;
+	pt_ptr = path_tab;
+	while (*pt_ptr)
+	{
+		if (find_binary(*pt_ptr, cmd[0]))
+		{
+			path = cat_path(*pt_ptr, cmd[0]);
+			execute(path, cmd, env);
+			free(path);
+			found = 1;
+			break ;
+		}
+		pt_ptr++;
+	}
+	return (found);
+}
+
 int			is_binary(char **cmd, char ***env)
 {
-	char	**path_list;
-	char	**roam;
+	char	**path_tab;
 	char	*var;
-	char	*cat;
 	int		found;
 
 	if (!env || !cmd)
 		return (0);
-	if (cmd[0][0] == '/')
+	if (ft_strchr(cmd[0], '/'))
 	{
 		execute(cmd[0], cmd, *env);
 		return (1);
 	}
-	else if (ft_strchr(cmd[0], '/'))
+	if (!(var = get_env_var(*env, "PATH")))
 	{
-		var = get_env_var(*env, "HOME");
-		cat = cat_path(var, cmd[0]);
-		execute(cat, cmd, *env);
-		free(var);
-		free(cat);
-		return (1);
-	}
-	var = get_env_var(*env, "PATH");
-	if (!(path_list = split_paths(var)))
+		ft_putstr("minishell: PATH not set");
 		return (0);
-	free(var);
-	roam = path_list;
-	found = 0;
-	while (*roam)
-	{
-		if (find_binary(*roam, cmd[0]))
-		{
-			cat = cat_path(*roam, cmd[0]);
-			execute(cat, cmd, *env);
-			free(cat);
-			found = 1;
-			break ;
-		}
-		roam++;
 	}
-	ft_free_tab2(path_list);
+	if (!(path_tab = split_paths(var)))
+		exit(EXIT_FAILURE);
+	free(var);
+	found = execute_name(path_tab, cmd, *env);
+	ft_free_tab2(path_tab);
 	return (found);
 }
 
@@ -143,7 +146,7 @@ int			execute(char *path, char **cmd, char **env)
 			wait(&pid);
 		if (pid < 0)
 		{
-			ft_putendl("forking failed.");
+			ft_putendl("minishell: forking failed.");
 			return (0);
 		}
 	}

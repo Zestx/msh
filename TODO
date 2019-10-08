@@ -18,5 +18,7 @@
 2. EXTENSIVE TESTING
 	- Look for bugs, crashs, unhandled errors.
 	- Look for leaks, double-free, conditional jump on unintialized values...
+
+3. ERROR MANAGEMENT
 	- Check if all allocations are protected.
-	- Check if all error case are managed.
+	- Check if all error case are managed (ESPECIALLY IN BINARIES EXECUTION)
