@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:32:39 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:59:16 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
-int		dispatch(char **input, char ***env, t_pwd *pwd)
+int			dispatch(char **input, char ***env, t_pwd *pwd)
 {
 	int ret;
 
@@ -20,16 +20,20 @@ int		dispatch(char **input, char ***env, t_pwd *pwd)
 	if (ret < 0)
 		return (-1);
 	if (ret == 0)
-		if (!is_binary(input, env))
+	{
+		ret = is_binary(input, env);
+		if (ret == 0)
 		{
 			ft_putstr("msh: command not found: ");
-			ft_putendl(input[0]);
 			return (0);
 		}
+		if (ret == -1)
+			return (0);
+	}
 	return (1);
 }
 
-size_t	get_tab_size(char **tab)
+size_t		get_tab_size(char **tab)
 {
 	size_t	size;
 	char	**roam;
@@ -46,7 +50,7 @@ size_t	get_tab_size(char **tab)
 	return (size);
 }
 
-char	**get_env(char **environ)
+char		**get_env(char **environ)
 {
 	char	**copy;
 	char	**env_ptr;
@@ -67,7 +71,7 @@ char	**get_env(char **environ)
 	return (copy);
 }
 
-void	msig_handler(int signo)
+void		msig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -95,7 +99,7 @@ static void	free_pwd(t_pwd *pwd)
 	free(pwd->owd);
 }
 
-int		main(void)
+int			main(void)
 {
 	extern char **environ;
 	char		**env;

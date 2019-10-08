@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 01:45:36 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:50:55 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:46:33 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 static char	*glue_arg(char **split)
 {
@@ -49,12 +49,13 @@ static char	**get_val(char **split, char **env)
 				if (!(*roam = ft_strdup("")))
 					exit(EXIT_FAILURE);
 			}
-			else if (!(*roam = ft_strdup(tmp)))
+			else
 			{
-				exit(EXIT_FAILURE);
 				free(*roam);
+				if (!(*roam = ft_strdup(tmp)))
+					exit(EXIT_FAILURE);
+				free(tmp);
 			}
-			free(tmp);
 		}
 		roam++;
 	}

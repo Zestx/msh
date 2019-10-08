@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:27:50 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:00:58 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 int			is_builtin(char **cmd, char ***env, t_pwd *pwd)
 {
@@ -77,11 +77,11 @@ static char	*cat_path(char *dir, char *name)
 	return (full_path);
 }
 
-static int		execute_name(char **path_tab, char **cmd, char **env)
+static int	execute_name(char **path_tab, char **cmd, char **env)
 {
 	char	**pt_ptr;
 	char	*path;
-	int	found;
+	int		found;
 
 	found = 0;
 	pt_ptr = path_tab;
@@ -116,7 +116,7 @@ int			is_binary(char **cmd, char ***env)
 	if (!(var = get_env_var(*env, "PATH")))
 	{
 		ft_putstr("minishell: PATH not set");
-		return (0);
+		return (-1);
 	}
 	if (!(path_tab = split_paths(var)))
 		exit(EXIT_FAILURE);
@@ -133,22 +133,21 @@ int			execute(char *path, char **cmd, char **env)
 
 	if (!path)
 		return (0);
-	lstat(path, &st_buff);
+	if (lstat(path, &st_buff))
+		return (0);
 	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(path, cmd, env);
+			if (execve(path, cmd, env))
+				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
 		}
 		if (pid > 0)
 			wait(&pid);
 		if (pid < 0)
-		{
-			ft_putendl("minishell: forking failed.");
-			return (0);
-		}
+			exit(EXIT_FAILURE);
 	}
 	else
 		return (0);

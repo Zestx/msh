@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 17:07:50 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 04:25:48 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:45:47 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 static int	is_envv(char *var, char **env)
 {

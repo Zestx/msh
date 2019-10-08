@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:22:49 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 17:38:54 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <dirent.h>
 # include "libft/libft.h"
 # include <signal.h>
+# include <limits.h>
 
 # define MAG "\x1B[35m"
 # define CYAN "\x1B[36m"

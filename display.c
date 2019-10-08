@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:33:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:29:44 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:43:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 void		prompt(void)
 {

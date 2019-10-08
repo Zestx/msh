@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:08:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 00:22:05 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:45:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 void	printenv(char **env)
 {

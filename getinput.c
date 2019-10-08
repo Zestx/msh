@@ -6,15 +6,16 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 01:48:34 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:29:45 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 static char		**expand_args(char **args, char **env, size_t ac)
 {
 	char	**xpnd;
+	char	*tmp;
 	int		i;
 
 	if (!(xpnd = malloc(sizeof(xpnd) * (ac + 1))))
@@ -24,7 +25,15 @@ static char		**expand_args(char **args, char **env, size_t ac)
 	while (args[i])
 	{
 		if (args[i][0] == '~' && (!args[i][1] || args[i][1] == '/'))
-			xpnd[i] = expand_tilde(args[i], get_env_var(env, "HOME"));
+		{
+			if (!(tmp = get_env_var(env, "HOME")))
+			{
+				if (!(xpnd[i] = ft_strdup(" ")))
+					exit(EXIT_FAILURE);
+			}
+			else if ((xpnd[i] = expand_tilde(args[i], tmp)))
+				free(tmp);
+		}
 		else if (ft_strchr(args[i], '$'))
 			xpnd[i] = expand_vars(args[i], env);
 		else if (!(xpnd[i] = ft_strdup(args[i])))

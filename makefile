@@ -6,24 +6,24 @@
 #    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/24 17:44:40 by qbackaer          #+#    #+#              #
-#    Updated: 2019/10/07 06:23:07 by qbackaer         ###   ########.fr        #
+#    Updated: 2019/10/08 19:09:22 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra --pedantic -g
-NAME = msh
-INCLUDES = msh.h
-SRCS = msh.c display.c util.c execute.c getinput.c print.c setenv.c unsetenv.c \
-	   cd.c expand.c echo.c
-OBJS = msh.o display.o util.o execute.o getinput.o print.o setenv.o unsetenv.o \
-	   cd.o expand.o echo.c
+CFLAGS = -Wall -Wextra -Werror -g
+NAME = minishell
+INCLUDES = minishell.h
+SRCS = minishell.c display.c util.c execute.c getinput.c print.c setenv.c \
+	   unsetenv.c cd.c expand.c echo.c
+OBJS = minishell.o display.o util.o execute.o getinput.o print.o setenv.o \
+	   unsetenv.o cd.o expand.o echo.c
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	$(CC) $(CFLAGS) $^ -I. ./libft/libft.a -o msh
+	$(CC) $(CFLAGS) $^ -I. ./libft/libft.a -o minishell
 	rm -rf *.o
 
 $(OBJS): $(SRCS)

@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 06:18:47 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:46:05 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:46:42 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 static int	is_nopt(char *str)
 {
@@ -29,7 +29,7 @@ static int	is_nopt(char *str)
 	return (1);
 }
 
-void	echo(char **cmd)
+void		echo(char **cmd)
 {
 	char	**roam;
 	int		n;

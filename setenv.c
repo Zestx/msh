@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 18:23:21 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 05:46:03 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:44:55 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 char	**set_env(char **cmd, char ***env)
 {

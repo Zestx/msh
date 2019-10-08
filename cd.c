@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 18:30:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:16:30 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:30:09 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 static void	dir_access(char *path)
 {
@@ -89,7 +89,9 @@ static void	chdir_arg(char *path, char ***env, t_pwd *pwd)
 
 void		cd(char **cmd, char ***env, t_pwd *pwd)
 {
-	if (!cmd[1] || !ft_strcmp(cmd[1], "--"))
+	if (!ft_strcmp(cmd[1], " "))
+		ft_putstr("minishell: cd: HOME not set\n");
+	else if (!cmd[1] || !ft_strcmp(cmd[1], "--"))
 		chdir_home(env, pwd);
 	else if (!ft_strcmp(cmd[1], "-"))
 		chdir_oldpwd(env, pwd);

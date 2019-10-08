@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/07 06:15:47 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:46:13 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "minishell.h"
 
 char	*get_env_var(char **env, char *var_name)
 {
@@ -92,7 +92,7 @@ void	update_s_pwd(t_pwd *pwd)
 		exit(EXIT_FAILURE);
 }
 
-int	update_pwd(char ***env, char *var, char *value)
+int		update_pwd(char ***env, char *var, char *value)
 {
 	char	**roam;
 
