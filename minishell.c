@@ -123,7 +123,7 @@ static void	prompt_loop(char ***env, t_pwd *pwd)
 			if (!cmd || !cmd[0])
 			{
 				ft_free_tab2(cmd);
-				continue ;
+				break ;
 			}
 			if (dispatch(cmd, env, pwd) < 0)
 			{
