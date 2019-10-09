@@ -116,24 +116,45 @@ static char		**split_args(char **args, char *input_str, size_t ac)
 	return (args);
 }
 
-char			**get_input(char **env)
+static void	free_pwd(t_pwd *pwd)
+{
+	free(pwd->cwd);
+	free(pwd->owd);
+}
+
+static void	exit_sh(char **env, t_pwd *pwd)
+{
+	free_pwd(pwd);
+	ft_free_tab2(env);
+	ft_putchar('\n');
+	exit(EXIT_SUCCESS);
+}
+
+char			**get_input(char **env, t_pwd *pwd)
 {
 	char	*input_str;
 	char	**cmds;
 	char	*chr;
+	int	ret;
 
 	prompt(env);
-	if (get_next_line(0, &input_str) < 0)
+	if ((ret = get_next_line(0, &input_str)) < 0)
 		exit(EXIT_FAILURE);
-	if (input_str[0] == ';' || ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';'))
+	if (!ret)
+		exit_sh(env, pwd);
+	if (input_str && ft_strlen(input_str) && (input_str[0] == ';' 
+	|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
 	{
 		free(input_str);
 		ft_putstr("minishell: syntax error: unexpected ';'\n");
 		return (NULL);
 	}
+	if (!input_str || !ft_strlen(input_str))
+		return (NULL);
 	if (!(cmds = ft_strsplit(input_str, ';')))
 		exit(EXIT_FAILURE);
-	free(input_str);
+	if (input_str)
+		free(input_str);
 	return (cmds);
 }
 

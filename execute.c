@@ -141,6 +141,7 @@ int			execute(char *path, char **cmd, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			if (execve(path, cmd, env))
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);

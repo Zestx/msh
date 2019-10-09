@@ -39,9 +39,10 @@ typedef struct	s_pwd
 
 void			title(void);
 void			prompt();
+void			nl_prompt();
 size_t			get_tab_size(char **tab);
 char			**get_env(char **environ);
-char			**get_input(char **env);
+char			**get_input(char **env, t_pwd *pwd);
 char			**parse_cmd(char *cmd, char **env);
 int			dispatch(char **input, char ***env, t_pwd *pwd);
 int			is_builtin(char **cmd, char ***env, t_pwd *pwd);

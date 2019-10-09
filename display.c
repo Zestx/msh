@@ -27,6 +27,22 @@ void		prompt(void)
 	ft_putstr("> ");
 }
 
+void		nl_prompt(void)
+{
+	char cwd_buff[PATH_MAX + 1];
+
+	ft_putchar('\n');
+	ft_putstr("usr");
+	ft_putstr(CYAN);
+	ft_putstr("@");
+	ft_putstr(RESET);
+	ft_putstr("computer");
+	ft_putstr(MAG);
+	ft_putstr(getcwd(cwd_buff, PATH_MAX + 1));
+	ft_putstr(RESET);
+	ft_putstr("> ");
+}
+
 void		title(void)
 {
 	ft_putstr("-------------------\n|");
