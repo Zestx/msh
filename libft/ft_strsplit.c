@@ -69,7 +69,7 @@ char		**ft_strsplit(char const *s, char c)
 	w_array = (char**)malloc(sizeof(w_array) * (wc + 1));
 	if (!w_array)
 		return (NULL);
-	w_array[wc] = 0;
+	w_array[wc] = NULL;
 	i = 0;
 	while (i < wc)
 	{

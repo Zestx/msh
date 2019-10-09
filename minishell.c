@@ -106,22 +106,37 @@ static void	free_pwd(t_pwd *pwd)
 
 static void	prompt_loop(char ***env, t_pwd *pwd)
 {
-	char **input;
+	char	**ptr;
+	char	**cmd;
+	char	**all_cmds;
+	int	exit;
 
+	exit = 0;
 	while (1)
 	{
-		input = get_input(*env);
-		if (!input || !input[0])
+		if (!(all_cmds = get_input(*env)))
+		continue;
+		ptr = all_cmds;
+		while (*ptr)
 		{
-			ft_free_tab2(input);
-			continue ;
+			cmd = parse_cmd(*ptr, *env);
+			if (!cmd || !cmd[0])
+			{
+				ft_free_tab2(cmd);
+				continue ;
+			}
+			if (dispatch(cmd, env, pwd) < 0)
+			{
+				exit = 1;
+				ft_free_tab2(cmd);
+				break ;
+			}
+			ft_free_tab2(cmd);
+			ptr++;
 		}
-		if (dispatch(input, env, pwd) < 0)
-		{
-			ft_free_tab2(input);
+		free(all_cmds);
+		if (exit)
 			break ;
-		}
-		ft_free_tab2(input);
 	}
 }
 

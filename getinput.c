@@ -119,21 +119,38 @@ static char		**split_args(char **args, char *input_str, size_t ac)
 char			**get_input(char **env)
 {
 	char	*input_str;
-	char	**args;
-	size_t	ac;
+	char	**cmds;
+	char	*chr;
 
 	prompt(env);
 	if (get_next_line(0, &input_str) < 0)
 		exit(EXIT_FAILURE);
-	if (!(ac = count_words(input_str)))
+	if (input_str[0] == ';' || ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';'))
 	{
 		free(input_str);
+		ft_putstr("minishell: syntax error: unexpected ';'\n");
+		return (NULL);
+	}
+	if (!(cmds = ft_strsplit(input_str, ';')))
+		exit(EXIT_FAILURE);
+	free(input_str);
+	return (cmds);
+}
+
+char			**parse_cmd(char *cmd, char **env)
+{
+	char **args;
+	size_t ac;
+
+	if (!(ac = count_words(cmd)))
+	{
+		free(cmd);
 		return (NULL);
 	}
 	if (!(args = malloc(sizeof(args) * (ac + 1))))
 		exit(EXIT_FAILURE);
-	args = split_args(args, input_str, ac);
-	free(input_str);
+	args = split_args(args, cmd, ac);
+	free(cmd);
 	args = expand_args(args, env, ac);
 	args = clean_args(args);
 	return (args);
