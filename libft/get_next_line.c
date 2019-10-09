@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 20:00:19 by qbackaer          #+#    #+#             */
-/*   Updated: 2018/12/07 16:48:28 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/09 20:41:54 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ int				get_next_line(const int fd, char **line)
 	{
 		if ((u.n = read_buffer(fd, &b[fd])) <= 0)
 			return (u.n ? u.n : u.curr_size != 0);
-	
 		if (!(u.p = ft_memchr(&b[fd].rd[b[fd].str], S, b[fd].end - b[fd].str)))
 			u.size = b[fd].end - b[fd].str;
-	
 		else
 			u.size = (u.p - b[fd].rd) - b[fd].str + 1;
 		if (!(*line = ft_realloc(*line, u.curr_size, u.curr_size + u.size)))

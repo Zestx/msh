@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 20:12:14 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/09 20:36:57 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		msig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		ft_putstr("\n");
+		ft_putchar('\n');
 		prompt();
 	}
 }
@@ -104,11 +104,31 @@ static void	free_pwd(t_pwd *pwd)
 	free(pwd->owd);
 }
 
+static void	prompt_loop(char ***env, t_pwd *pwd)
+{
+	char **input;
+
+	while (1)
+	{
+		input = get_input(*env);
+		if (!input || !input[0])
+		{
+			ft_free_tab2(input);
+			continue ;
+		}
+		if (dispatch(input, env, pwd) < 0)
+		{
+			ft_free_tab2(input);
+			break ;
+		}
+		ft_free_tab2(input);
+	}
+}
+
 int			main(void)
 {
 	extern char **environ;
 	char		**env;
-	char		**input;
 	t_pwd		pwd;
 
 	if (!init_pwd(&pwd))
@@ -117,21 +137,7 @@ int			main(void)
 	if (!(env = get_env(environ)))
 		return (1);
 	title();
-	while (1)
-	{
-		input = get_input(env);
-		if (!input || !input[0])
-		{
-			ft_free_tab2(input);
-			continue ;
-		}
-		if (dispatch(input, &env, &pwd) < 0)
-		{
-			ft_free_tab2(input);
-			break ;
-		}
-		ft_free_tab2(input);
-	}
+	prompt_loop(&env, &pwd);
 	free_pwd(&pwd);
 	ft_free_tab2(env);
 	return (0);

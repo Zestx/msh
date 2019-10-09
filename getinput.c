@@ -6,11 +6,52 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 20:44:00 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/09 20:38:50 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static size_t	get_clean_args(char **args)
+{
+	char	**a_ptr;
+	size_t	len;
+
+	len = 0;
+	a_ptr = args;
+	while (*a_ptr)
+	{
+		if (ft_strcmp(*a_ptr, " ") && ft_strcmp(*a_ptr, ""))
+			len++;
+		a_ptr++;
+	}
+	return (len);
+}
+
+static char		**clean_args(char **args)
+{
+	char	**clean;
+	char	**args_ptr;
+	char	**clean_ptr;
+
+	if (!(clean = malloc(sizeof(clean) * (get_clean_args(args) + 1))))
+		exit(EXIT_FAILURE);
+	clean[get_clean_args(args)] = NULL;
+	args_ptr = args;
+	clean_ptr = clean;
+	while (*args_ptr)
+	{
+		if (ft_strcmp(*args_ptr, " ") && ft_strcmp(*args_ptr, ""))
+		{
+			if (!(*clean_ptr = ft_strdup(*args_ptr)))
+				exit(EXIT_FAILURE);
+			clean_ptr++;
+		}
+		args_ptr++;
+	}
+	ft_free_tab2(args);
+	return (clean);
+}
 
 static char		**expand_args(char **args, char **env, size_t ac)
 {
@@ -24,20 +65,26 @@ static char		**expand_args(char **args, char **env, size_t ac)
 	xpnd[ac] = NULL;
 	while (args[i])
 	{
-		if (args[i][0] == '~' && (!args[i][1] || args[i][1] == '/'))
+		if (!(xpnd[i] = ft_strdup(args[i])))
+			exit(EXIT_FAILURE);
+		if (xpnd[i][0] == '~' && (!xpnd[i][1] || xpnd[i][1] == '/'))
 		{
+			free(xpnd[i]);
 			if (!(tmp = get_env_var(env, "HOME")))
 			{
-				if (!(xpnd[i] = ft_strdup(" ")))
+				if (!(xpnd[i] = ft_strdup("")))
 					exit(EXIT_FAILURE);
 			}
 			else if ((xpnd[i] = expand_tilde(args[i], tmp)))
 				free(tmp);
 		}
-		if (ft_strchr(args[i], '$'))
-			xpnd[i] = expand_vars(args[i], env);
-		else if(!(xpnd[i] = ft_strdup(args[i])))
-			exit(EXIT_FAILURE);
+		if (ft_strchr(xpnd[i], '$'))
+		{
+			tmp = ft_strdup(xpnd[i]);
+			free(xpnd[i]);
+			xpnd[i] = expand_vars(tmp, env);
+			free(tmp);
+		}
 		i++;
 	}
 	ft_free_tab2(args);
@@ -88,5 +135,6 @@ char			**get_input(char **env)
 	args = split_args(args, input_str, ac);
 	free(input_str);
 	args = expand_args(args, env, ac);
+	args = clean_args(args);
 	return (args);
 }

@@ -6,12 +6,12 @@
 #    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/24 17:44:40 by qbackaer          #+#    #+#              #
-#    Updated: 2019/10/08 19:53:02 by qbackaer         ###   ########.fr        #
+#    Updated: 2019/10/09 20:42:39 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -g
 NAME = minishell
 INCLUDES = minishell.h
 SRCS = minishell.c display.c util.c execute.c getinput.c print.c setenv.c \
@@ -34,7 +34,7 @@ clean:
 	make fclean -C ./libft
 
 fclean: clean
-	rm -rf msh
+	rm -rf minishell
 
 re: fclean all
 

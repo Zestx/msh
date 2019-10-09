@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 18:02:27 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 18:02:28 by qbackaer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_realloc_tab.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 19:41:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 17:59:42 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/09 20:41:10 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +20,7 @@ static size_t	get_size(char **tab)
 
 	ptr = tab;
 	size = 0;
-	while(*ptr)
+	while (*ptr)
 	{
 		size++;
 		ptr++;
@@ -40,7 +28,7 @@ static size_t	get_size(char **tab)
 	return (size + 2);
 }
 
-char	**ft_realloc_tab(char **old_tab, char *new_entry)
+char			**ft_realloc_tab(char **old_tab, char *new_entry)
 {
 	char	**new_tab;
 	char	**roam_o;
@@ -60,7 +48,7 @@ char	**ft_realloc_tab(char **old_tab, char *new_entry)
 		roam_n++;
 	}
 	if (!(*roam_n = ft_strdup(new_entry)))
-			exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	roam_n++;
 	*roam_n = NULL;
 	ft_free_tab2(old_tab);
