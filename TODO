@@ -15,10 +15,4 @@
 	- SHLVL: Must be incremented by 1. If it's not a number, it is set to 0.
 	- SHELL: Should be set to the path of the minishell executable.
 
-2. EXTENSIVE TESTING
-	- Look for bugs, crashs, unhandled errors.
-	- Look for leaks, double-free, conditional jump on unintialized values...
-
-3. ERROR MANAGEMENT
-	- Check if all allocations are protected.
-	- Check if all error case are managed (ESPECIALLY IN BINARIES EXECUTION)
+2. CLEAN DOUBLE-QUOTES FROM VARIABLES?
