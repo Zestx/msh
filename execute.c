@@ -139,9 +139,9 @@ int			execute(char *path, char **cmd, char **env)
 	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
 	{
 		pid = fork();
+		signal(SIGINT, psig_handler);
 		if (pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
 			if (execve(path, cmd, env))
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);

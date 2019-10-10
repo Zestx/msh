@@ -79,7 +79,10 @@ char		**get_env(char **environ)
 void		psig_handler(int signo)
 {
 	if (signo == SIGINT)
-		ft_putstr("");
+	{
+		ft_putstr("\n");
+		signal(SIGINT, psig_handler);
+	}
 
 }
 
@@ -87,8 +90,9 @@ void		msig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		ft_putchar('\n');
+		ft_putstr("\n");
 		prompt();
+		signal(SIGINT, msig_handler);
 	}
 }
 
@@ -122,18 +126,15 @@ static void	prompt_loop(char ***env, t_pwd *pwd)
 	while (1)
 	{
 		if (!(all_cmds = get_input(*env, pwd)))
-		{
-			printf("CONTINUE\n");
 			continue;
-		}
 		ptr = all_cmds;
 		while (*ptr)
 		{
 			cmd = parse_cmd(*ptr, *env);
 			if (!cmd || !cmd[0])
 			{
-				//ft_free_tab2(cmd);
-				continue ;
+				ft_free_tab2(cmd);
+				break ;
 			}
 			if (dispatch(cmd, env, pwd) < 0)
 			{
