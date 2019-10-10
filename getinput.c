@@ -53,6 +53,12 @@ static char		**clean_args(char **args)
 	return (clean);
 }
 
+void			strdup_safe(char *dst, char *src)
+{
+	if (!(dst = ft_strdup(src)))
+		exit(EXIT_FAILURE);
+}
+
 static char		**expand_args(char **args, char **env, size_t ac)
 {
 	char	**xpnd;
@@ -116,19 +122,6 @@ static char		**split_args(char **args, char *input_str, size_t ac)
 	return (args);
 }
 
-static void	free_pwd(t_pwd *pwd)
-{
-	free(pwd->cwd);
-	free(pwd->owd);
-}
-
-static void	exit_sh(char **env, t_pwd *pwd)
-{
-	free_pwd(pwd);
-	ft_free_tab2(env);
-	ft_putchar('\n');
-	exit(EXIT_SUCCESS);
-}
 
 char			**get_input(char **env, t_pwd *pwd)
 {

@@ -90,9 +90,7 @@ static void	chdir_arg(char *path, char ***env, t_pwd *pwd)
 void		cd(char **cmd, char ***env, t_pwd *pwd)
 {
 	if (cmd[1] && !ft_strcmp(cmd[1], " "))
-	{
 		ft_putstr("minishell: cd: HOME not set\n");
-	}
 	else if (!cmd[1] || !ft_strcmp(cmd[1], "--"))
 		chdir_home(env, pwd);
 	else if (!ft_strcmp(cmd[1], "-"))

@@ -78,33 +78,19 @@ size_t	count_words(char *str)
 	return (count);
 }
 
-void	update_s_pwd(t_pwd *pwd)
+size_t		get_tab_size(char **tab)
 {
-	char	tmp[PATH_MAX + 1];
-
-	free(pwd->owd);
-	if (!(pwd->owd = ft_strdup(pwd->cwd)))
-		exit(EXIT_FAILURE);
-	free(pwd->cwd);
-	if (!(getcwd(tmp, PATH_MAX + 1)))
-		exit(EXIT_FAILURE);
-	if (!(pwd->cwd = ft_strdup(tmp)))
-		exit(EXIT_FAILURE);
-}
-
-int		update_pwd(char ***env, char *var, char *value)
-{
+	size_t	size;
 	char	**roam;
 
-	roam = *env;
+	if (!tab)
+		return (0);
+	roam = tab;
+	size = 0;
 	while (*roam)
 	{
-		if (env_match(var, *roam))
-		{
-			*roam = set_var(*roam, var, value);
-			return (1);
-		}
+		size++;
 		roam++;
 	}
-	return (0);
+	return (size);
 }

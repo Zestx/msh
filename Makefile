@@ -14,10 +14,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 NAME = minishell
 INCLUDES = minishell.h
-SRCS = minishell.c display.c util.c execute.c getinput.c print.c setenv.c \
-	   unsetenv.c cd.c expand.c echo.c
-OBJS = minishell.o display.o util.o execute.o getinput.o print.o setenv.o \
-	   unsetenv.o cd.o expand.o echo.c
+SRCS = minishell.c display.c getinput.c expand.c execute.c setenv.c unsetenv.c \
+       cd.c echo.c util.c util_pwd.c util_sys.c
+OBJS = minishell.o display.o getinput.o expand.o execute.o setenv.o unsetenv.o \
+       cd.o echo.o util.o util_pwd.o util_sys.o
 
 all: $(NAME)
 

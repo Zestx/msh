@@ -68,5 +68,8 @@ char			*expand_tilde(char *str, char *home);
 int			update_pwd(char ***env, char *var, char *value);
 void			echo(char **cmd);
 void			update_s_pwd(t_pwd *pwd);
+int			init_pwd(t_pwd *pwd);
+void			free_pwd(t_pwd *pwd);
+void			exit_sh(char **env, t_pwd *pwd);
 
 #endif

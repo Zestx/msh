@@ -38,22 +38,6 @@ int			dispatch(char **input, char ***env, t_pwd *pwd)
 	return (1);
 }
 
-size_t		get_tab_size(char **tab)
-{
-	size_t	size;
-	char	**roam;
-
-	if (!tab)
-		return (0);
-	roam = tab;
-	size = 0;
-	while (*roam)
-	{
-		size++;
-		roam++;
-	}
-	return (size);
-}
 
 char		**get_env(char **environ)
 {
@@ -76,44 +60,7 @@ char		**get_env(char **environ)
 	return (copy);
 }
 
-void		psig_handler(int signo)
-{
-	if (signo == SIGINT)
-	{
-		ft_putstr("\n");
-		signal(SIGINT, psig_handler);
-	}
 
-}
-
-void		msig_handler(int signo)
-{
-	if (signo == SIGINT)
-	{
-		ft_putstr("\n");
-		prompt();
-		signal(SIGINT, msig_handler);
-	}
-}
-
-static int	init_pwd(t_pwd *pwd)
-{
-	char tmp[PATH_MAX + 1];
-
-	if (!(getcwd(tmp, PATH_MAX + 1)))
-		return (0);
-	if (!(pwd->cwd = ft_strdup(tmp)))
-		exit(EXIT_FAILURE);
-	if (!(pwd->owd = ft_strdup(tmp)))
-		exit(EXIT_FAILURE);
-	return (1);
-}
-
-static void	free_pwd(t_pwd *pwd)
-{
-	free(pwd->cwd);
-	free(pwd->owd);
-}
 
 static void	prompt_loop(char ***env, t_pwd *pwd)
 {

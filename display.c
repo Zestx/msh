@@ -12,35 +12,53 @@
 
 #include "minishell.h"
 
-void		prompt(void)
+void	printenv(char **env)
 {
-	char cwd_buff[PATH_MAX + 1];
+	char	**roam;
 
-	ft_putstr("usr");
-	ft_putstr(CYAN);
-	ft_putstr("@");
-	ft_putstr(RESET);
-	ft_putstr("computer");
-	ft_putstr(MAG);
-	ft_putstr(getcwd(cwd_buff, PATH_MAX + 1));
-	ft_putstr(RESET);
-	ft_putstr("> ");
+	if (!env)
+	{
+		ft_putendl("minishell: error: empty environement.");
+		return ;
+	}
+	roam = env;
+	while (*roam)
+	{
+		ft_putendl(*roam);
+		roam++;
+	}
 }
 
-void		nl_prompt(void)
+static void	prompt_path(void)
 {
 	char cwd_buff[PATH_MAX + 1];
+	int i;
 
-	ft_putchar('\n');
-	ft_putstr("usr");
+	getcwd(cwd_buff, PATH_MAX + 1);
+	i = 0;
+	while (cwd_buff[i])
+	{
+		if (cwd_buff[i] != '/')
+		{
+			ft_putstr(RESET);
+			ft_putchar(cwd_buff[i++]);
+		}
+		else
+		{
+			ft_putstr(MAG);
+			ft_putchar(cwd_buff[i++]);
+		}
+	}
+}
+
+void		prompt(void)
+{
 	ft_putstr(CYAN);
 	ft_putstr("@");
-	ft_putstr(RESET);
-	ft_putstr("computer");
+	prompt_path();
 	ft_putstr(MAG);
-	ft_putstr(getcwd(cwd_buff, PATH_MAX + 1));
+	ft_putstr("➠➤ ");
 	ft_putstr(RESET);
-	ft_putstr("> ");
 }
 
 void		title(void)
@@ -49,9 +67,15 @@ void		title(void)
 	ft_putstr(MAG);
 	ft_putstr("~");
 	ft_putstr(RESET);
-	ft_putstr(" MINISHELL 0.2 ");
+	ft_putstr(" MiniShell ");
+	ft_putstr(CYAN);
+	ft_putstr("1.0 ");
 	ft_putstr(MAG);
 	ft_putstr("~");
 	ft_putstr(RESET);
-	ft_putstr("|\n-------------------\n\n");
+	ft_putstr("|\n-------------------\n");
+	ft_putstr("developped by ➠➤ ");
+	ft_putstr(CYAN);
+	ft_putstr("qbackaer@student.s19.be\n\n\n");
+	ft_putstr(RESET);
 }
