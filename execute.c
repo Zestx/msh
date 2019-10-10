@@ -127,6 +127,17 @@ int			is_binary(char **cmd, char ***env)
 	return (found);
 }
 
+static int		access_error_wpr(char *path, int type, struct stat st)
+{
+	ft_putstr("minishell: ");
+	ft_putstr(path);
+	if (type && !(st.st_mode & S_IXUSR))
+		ft_putstr(": permission denied\n");
+	else
+		ft_putstr(": error\n");
+	return (-1);
+}
+
 int			execute(char *path, char **cmd, char **env)
 {
 	pid_t		pid;
@@ -135,7 +146,7 @@ int			execute(char *path, char **cmd, char **env)
 	if (!path)
 		return (0);
 	if (lstat(path, &st_buff))
-		return (0);
+		return (access_error_wpr(path, 0, st_buff));
 	if (S_ISREG(st_buff.st_mode) && st_buff.st_mode & S_IXUSR)
 	{
 		pid = fork();
@@ -152,6 +163,6 @@ int			execute(char *path, char **cmd, char **env)
 			exit(EXIT_FAILURE);
 	}
 	else
-		return (0);
+		return (access_error_wpr(path, 1, st_buff));
 	return (1);
 }

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	dir_access(char *path)
+void	check_access(char *path)
 {
 	struct stat st;
 
@@ -36,7 +36,7 @@ static void	chdir_home(char ***env, t_pwd *pwd)
 	if (!(home = get_env_var(*env, "HOME")))
 		ft_putstr("minishell: cd: HOME not set\n");
 	else if (chdir(home))
-		dir_access(home);
+		check_access(home);
 	else
 	{
 		if ((tmp = get_env_var(*env, "PWD")))
@@ -56,7 +56,7 @@ static void	chdir_oldpwd(char ***env, t_pwd *pwd)
 	char	*tmp;
 
 	if (chdir(pwd->owd))
-		dir_access(pwd->owd);
+		check_access(pwd->owd);
 	else
 	{
 		if ((tmp = get_env_var(*env, "PWD")))
@@ -74,7 +74,7 @@ static void	chdir_arg(char *path, char ***env, t_pwd *pwd)
 	char	*tmp;
 
 	if (chdir(path))
-		dir_access(path);
+		check_access(path);
 	else
 	{
 		if ((tmp = get_env_var(*env, "PWD")))

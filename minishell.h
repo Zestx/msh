@@ -71,5 +71,6 @@ void			update_s_pwd(t_pwd *pwd);
 int			init_pwd(t_pwd *pwd);
 void			free_pwd(t_pwd *pwd);
 void			exit_sh(char **env, t_pwd *pwd);
+void			check_access(char *path);
 
 #endif

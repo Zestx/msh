@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 INCLUDES = minishell.h
 SRCS = minishell.c display.c getinput.c expand.c execute.c setenv.c unsetenv.c \
