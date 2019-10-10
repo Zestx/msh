@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 01:45:36 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/09 20:28:29 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:19:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ static char	**get_val(char **split, char **env)
 		roam++;
 	}
 	return (NULL);
-}
-
-static void	realloc_sub(char *str, char ***split, unsigned int i, size_t e)
-{
-	char *tmp;
-
-	if (!(tmp = ft_strsub(str, i, e - i)))
-		exit(EXIT_FAILURE);
-	*split = ft_realloc_tab(*split, tmp);
-	free(tmp);
 }
 
 static char	**lex_var(char *str)

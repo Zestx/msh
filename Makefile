@@ -6,7 +6,7 @@
 #    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/24 17:44:40 by qbackaer          #+#    #+#              #
-#    Updated: 2019/10/09 20:42:39 by qbackaer         ###   ########.fr        #
+#    Updated: 2019/10/10 19:17:03 by qbackaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 INCLUDES = minishell.h
 SRCS = minishell.c display.c getinput.c expand.c execute.c setenv.c unsetenv.c \
-       cd.c echo.c util.c util_pwd.c util_sys.c
+       cd.c echo.c util.c util_tab.c util_pwd.c util_sys.c
 OBJS = minishell.o display.o getinput.o expand.o execute.o setenv.o unsetenv.o \
-       cd.o echo.o util.o util_pwd.o util_sys.o
+       cd.o echo.o util.o util_tab.c util_pwd.o util_sys.o
 
 all: $(NAME)
 

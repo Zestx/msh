@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 18:10:03 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:20:22 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,6 @@ static int	find_binary(char *dirpath, char *binname)
 		}
 	closedir(dr);
 	return (0);
-}
-
-static char	*cat_path(char *dir, char *name)
-{
-	char	*full_path;
-	int		i;
-	int		j;
-
-	if (!(full_path = malloc(ft_strlen(dir) + ft_strlen(name) + 2)))
-		exit(EXIT_FAILURE);
-	i = 0;
-	while (dir[i])
-	{
-		full_path[i] = dir[i];
-		i++;
-	}
-	full_path[i++] = '/';
-	j = 0;
-	while (name[j])
-	{
-		full_path[i] = name[j];
-		j++;
-		i++;
-	}
-	full_path[i] = '\0';
-	return (full_path);
 }
 
 static int	execute_name(char **path_tab, char **cmd, char **env)

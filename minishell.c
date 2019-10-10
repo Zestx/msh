@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 18:09:35 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:20:02 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		**get_env(char **environ)
 	return (copy);
 }
 
-void 	test(char **ptr, int *exit, char ***env, t_pwd *pwd)
+void		test(char **ptr, int *exit, char ***env, t_pwd *pwd)
 {
 	char	**cmd;
 

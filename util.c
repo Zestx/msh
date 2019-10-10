@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 18:11:06 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:18:54 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,30 @@ char	*get_env_var(char **env, char *var_name)
 	return (NULL);
 }
 
-char	**init_tab(void)
+char	*cat_path(char *dir, char *name)
 {
-	char	**tab;
+	char	*full_path;
+	int		i;
+	int		j;
 
-	if (!(tab = malloc(sizeof(tab) * 2)))
+	if (!(full_path = malloc(ft_strlen(dir) + ft_strlen(name) + 2)))
 		exit(EXIT_FAILURE);
-	if (!(tab[0] = ft_strdup("")))
-		exit(EXIT_FAILURE);
-	tab[1] = NULL;
-	return (tab);
+	i = 0;
+	while (dir[i])
+	{
+		full_path[i] = dir[i];
+		i++;
+	}
+	full_path[i++] = '/';
+	j = 0;
+	while (name[j])
+	{
+		full_path[i] = name[j];
+		j++;
+		i++;
+	}
+	full_path[i] = '\0';
+	return (full_path);
 }
 
 char	**split_paths(char *paths_var)
@@ -78,19 +92,12 @@ size_t	count_words(char *str)
 	return (count);
 }
 
-size_t	get_tab_size(char **tab)
+void	realloc_sub(char *str, char ***split, unsigned int i, size_t e)
 {
-	size_t	size;
-	char	**roam;
+	char *tmp;
 
-	if (!tab)
-		return (0);
-	roam = tab;
-	size = 0;
-	while (*roam)
-	{
-		size++;
-		roam++;
-	}
-	return (size);
+	if (!(tmp = ft_strsub(str, i, e - i)))
+		exit(EXIT_FAILURE);
+	*split = ft_realloc_tab(*split, tmp);
+	free(tmp);
 }
