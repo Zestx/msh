@@ -116,7 +116,7 @@ int			is_binary(char **cmd, char ***env)
 	}
 	if (!(var = get_env_var(*env, "PATH")))
 	{
-		ft_putstr("minishell: PATH not set");
+		ft_putendl_fd("minishell: PATH not set", 2);
 		return (-1);
 	}
 	if (!(path_tab = split_paths(var)))

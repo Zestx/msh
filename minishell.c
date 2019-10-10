@@ -59,10 +59,33 @@ char		**get_env(char **environ)
 	return (copy);
 }
 
+void 	test(char **ptr, int *exit, char ***env, t_pwd *pwd)
+{
+	char	**cmd;
+
+	cmd = NULL;
+	while (*ptr)
+	{
+		cmd = parse_cmd(*ptr, *env);
+		if (!cmd || !cmd[0])
+		{
+			ft_free_tab2(cmd);
+			break ;
+		}
+		if (dispatch(cmd, env, pwd) < 0)
+		{
+			*exit = 1;
+			ft_free_tab2(cmd);
+			break ;
+		}
+		ft_free_tab2(cmd);
+		ptr++;
+	}
+}
+
 static void	prompt_loop(char ***env, t_pwd *pwd)
 {
 	char	**ptr;
-	char	**cmd;
 	char	**all_cmds;
 	int		exit;
 
@@ -72,23 +95,7 @@ static void	prompt_loop(char ***env, t_pwd *pwd)
 		if (!(all_cmds = get_input(*env, pwd)))
 			continue;
 		ptr = all_cmds;
-		while (*ptr)
-		{
-			cmd = parse_cmd(*ptr, *env);
-			if (!cmd || !cmd[0])
-			{
-				ft_free_tab2(cmd);
-				break ;
-			}
-			if (dispatch(cmd, env, pwd) < 0)
-			{
-				exit = 1;
-				ft_free_tab2(cmd);
-				break ;
-			}
-			ft_free_tab2(cmd);
-			ptr++;
-		}
+		test(ptr, &exit, env, pwd);
 		free(all_cmds);
 		if (exit)
 			break ;
