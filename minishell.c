@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/09 20:36:57 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:09:35 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			dispatch(char **input, char ***env, t_pwd *pwd)
 	return (1);
 }
 
-
 char		**get_env(char **environ)
 {
 	char	**copy;
@@ -60,14 +59,12 @@ char		**get_env(char **environ)
 	return (copy);
 }
 
-
-
 static void	prompt_loop(char ***env, t_pwd *pwd)
 {
 	char	**ptr;
 	char	**cmd;
 	char	**all_cmds;
-	int	exit;
+	int		exit;
 
 	exit = 0;
 	while (1)

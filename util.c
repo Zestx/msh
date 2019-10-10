@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 18:00:08 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 18:46:13 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:11:06 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ size_t	count_words(char *str)
 	return (count);
 }
 
-size_t		get_tab_size(char **tab)
+size_t	get_tab_size(char **tab)
 {
 	size_t	size;
 	char	**roam;

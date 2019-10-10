@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:33:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 18:43:08 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:08:32 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	printenv(char **env)
+void			printenv(char **env)
 {
 	char	**roam;
 
@@ -29,10 +29,10 @@ void	printenv(char **env)
 	}
 }
 
-static void	prompt_path(void)
+static void		prompt_path(void)
 {
-	char cwd_buff[PATH_MAX + 1];
-	int i;
+	char	cwd_buff[PATH_MAX + 1];
+	int		i;
 
 	getcwd(cwd_buff, PATH_MAX + 1);
 	i = 0;
@@ -51,7 +51,7 @@ static void	prompt_path(void)
 	}
 }
 
-void		prompt(void)
+void			prompt(void)
 {
 	ft_putstr(CYAN);
 	ft_putstr("@");
@@ -61,7 +61,7 @@ void		prompt(void)
 	ft_putstr(RESET);
 }
 
-void		title(void)
+void			title(void)
 {
 	ft_putstr("-------------------\n|");
 	ft_putstr(MAG);

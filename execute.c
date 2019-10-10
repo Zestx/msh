@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 20:02:15 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:10:03 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int			is_binary(char **cmd, char ***env)
 	return (found);
 }
 
-static int		access_error_wpr(char *path, int type, struct stat st)
+static int	access_error_wpr(char *path, int type, struct stat st)
 {
 	ft_putstr("minishell: ");
 	ft_putstr(path);

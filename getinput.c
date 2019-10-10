@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 16:49:39 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/09 20:38:50 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:13:14 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,20 @@ static char		**split_args(char **args, char *input_str, size_t ac)
 	return (args);
 }
 
-
 char			**get_input(char **env, t_pwd *pwd)
 {
 	char	*input_str;
 	char	**cmds;
 	char	*chr;
-	int	ret;
+	int		ret;
 
 	prompt(env);
 	if ((ret = get_next_line(0, &input_str)) < 0)
 		exit(EXIT_FAILURE);
 	if (!ret)
 		exit_sh(env, pwd);
-	if (input_str && ft_strlen(input_str) && (input_str[0] == ';' 
-				|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
+	if (input_str && ft_strlen(input_str) && (input_str[0] == ';'
+	|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
 	{
 		free(input_str);
 		ft_putstr("minishell: syntax error: unexpected ';'\n");
@@ -159,8 +158,8 @@ char			**get_input(char **env, t_pwd *pwd)
 
 char			**parse_cmd(char *cmd, char **env)
 {
-	char **args;
-	size_t ac;
+	char	**args;
+	size_t	ac;
 
 	if (!(ac = count_words(cmd)))
 	{

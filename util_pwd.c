@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util_pwd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/10 18:10:32 by qbackaer          #+#    #+#             */
+/*   Updated: 2019/10/10 18:11:50 by qbackaer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	update_s_pwd(t_pwd *pwd)
@@ -31,7 +43,7 @@ int		update_pwd(char ***env, char *var, char *value)
 	return (0);
 }
 
-int	init_pwd(t_pwd *pwd)
+int		init_pwd(t_pwd *pwd)
 {
 	char tmp[PATH_MAX + 1];
 

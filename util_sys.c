@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util_sys.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/10 18:10:17 by qbackaer          #+#    #+#             */
+/*   Updated: 2019/10/10 18:11:29 by qbackaer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void		psig_handler(int signo)
@@ -7,7 +19,6 @@ void		psig_handler(int signo)
 		ft_putstr("\n");
 		signal(SIGINT, psig_handler);
 	}
-
 }
 
 void		msig_handler(int signo)

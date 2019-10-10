@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 18:30:38 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/09 16:48:01 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 18:06:02 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_access(char *path)
+void		check_access(char *path)
 {
 	struct stat st;
 
