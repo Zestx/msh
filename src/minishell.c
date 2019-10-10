@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:54:06 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 19:20:02 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 20:26:05 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		**get_env(char **environ)
 	return (copy);
 }
 
-void		test(char **ptr, int *exit, char ***env, t_pwd *pwd)
+static void	input_loop(char **ptr, int *exit, char ***env, t_pwd *pwd)
 {
 	char	**cmd;
 
@@ -95,7 +95,7 @@ static void	prompt_loop(char ***env, t_pwd *pwd)
 		if (!(all_cmds = get_input(*env, pwd)))
 			continue;
 		ptr = all_cmds;
-		test(ptr, &exit, env, pwd);
+		input_loop(ptr, &exit, env, pwd);
 		free(all_cmds);
 		if (exit)
 			break ;

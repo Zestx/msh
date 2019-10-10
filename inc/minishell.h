@@ -6,12 +6,12 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/08 17:38:54 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 20:31:55 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_H
-# define MSH_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <dirent.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <signal.h>
 # include <limits.h>
 
@@ -35,42 +35,100 @@ typedef struct	s_pwd
 {
 	char	*cwd;
 	char	*owd;
-}		t_pwd;
+}				t_pwd;
 
+/*
+** minishell.c
+*/
+char			**get_env(char **environ);
+int				dispatch(char **input, char ***env, t_pwd *pwd);
+
+/*
+** display.c
+*/
 void			title(void);
 void			prompt();
-void			nl_prompt();
-size_t			get_tab_size(char **tab);
-char			**get_env(char **environ);
+void			printenv(char **env);
+
+/*
+** getinput.c
+*/
 char			**get_input(char **env, t_pwd *pwd);
 char			**parse_cmd(char *cmd, char **env);
-int			dispatch(char **input, char ***env, t_pwd *pwd);
-int			is_builtin(char **cmd, char ***env, t_pwd *pwd);
-int			is_binary(char **cmd, char ***env);
-int			execute(char *path, char **cmd, char **env);
-char			*get_env_var(char **env, char *var_name);
-char			**split_paths(char *paths_var);
-char			**set_env(char **cmd, char ***env);
-int			replace_env(char **cmd, char **env);
-int			env_match(char *to_find, char *curr_var);
-char			*set_var(char *to_set, char *name, char *value);
-void			printenv(char **env);
-char			**unset_env(char **cmd, char ***env);
-void			test_getinp(char **input);
-void			test_splits(char **paths);
-void			msig_handler(int signo);
-void			psig_handler(int signo);
-void			cd(char **cmd, char ***env, t_pwd *pwd);
-size_t			count_words(char *str);
-char			**init_tab(void);
+
+/*
+** expand.c
+*/
 char			*expand_vars(char *str, char **env);
 char			*expand_tilde(char *str, char *home);
-int			update_pwd(char ***env, char *var, char *value);
-void			echo(char **cmd);
-void			update_s_pwd(t_pwd *pwd);
-int			init_pwd(t_pwd *pwd);
-void			free_pwd(t_pwd *pwd);
-void			exit_sh(char **env, t_pwd *pwd);
+
+/*
+** execute.c
+*/
+int				is_builtin(char **cmd, char ***env, t_pwd *pwd);
+int				is_binary(char **cmd, char ***env);
+int				execute(char *path, char **cmd, char **env);
+
+/*
+** setenv.c
+*/
+char			**set_env(char **cmd, char ***env);
+int				replace_env(char **cmd, char **env);
+int				env_match(char *to_find, char *curr_var);
+char			*set_var(char *to_set, char *name, char *value);
+
+/*
+** unsetenv.c
+*/
+char			**unset_env(char **cmd, char ***env);
+
+/*
+** cd.c
+*/
+void			cd(char **cmd, char ***env, t_pwd *pwd);
 void			check_access(char *path);
+
+/*
+** echo.c
+*/
+void			echo(char **cmd);
+
+/*
+** util.c
+*/
+char			*get_env_var(char **env, char *var_name);
+char			*cat_path(char *dir, char *name);
+char			**split_paths(char *paths_var);
+size_t			count_words(char *str);
+void			realloc_sub(char *str, char ***split, unsigned int i, size_t e);
+
+/*
+** util_get.c
+*/
+char			*strdup_safe(char *src);
+char			*expand_vars_wpr(char *xpnd, char **env);
+size_t			get_clean_args(char **args);
+
+/*
+** util_tab.c
+*/
+char			**init_tab(void);
+size_t			get_tab_size(char **tab);
+
+/*
+** util_pwd.c
+*/
+int				update_pwd(char ***env, char *var, char *value);
+void			update_s_pwd(t_pwd *pwd);
+int				init_pwd(t_pwd *pwd);
+void			free_pwd(t_pwd *pwd);
+
+/*
+** util_sys.c
+*/
+void			msig_handler(int signo);
+void			psig_handler(int signo);
+void			exit_sh(char **env, t_pwd *pwd);
+int				access_error_wpr(char *path, int type, struct stat st);
 
 #endif

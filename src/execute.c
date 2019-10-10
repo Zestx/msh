@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 20:30:53 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 19:20:22 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:55:14 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,6 @@ int			is_binary(char **cmd, char ***env)
 	found = execute_name(path_tab, cmd, *env);
 	ft_free_tab2(path_tab);
 	return (found);
-}
-
-static int	access_error_wpr(char *path, int type, struct stat st)
-{
-	ft_putstr("minishell: ");
-	ft_putstr(path);
-	if (type && !(st.st_mode & S_IXUSR))
-		ft_putstr(": permission denied\n");
-	else
-		ft_putstr(": error\n");
-	return (-1);
 }
 
 int			execute(char *path, char **cmd, char **env)
