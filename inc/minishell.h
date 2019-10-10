@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 15:55:33 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/10/10 20:31:55 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/10/10 20:34:09 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void			check_access(char *path);
 void			echo(char **cmd);
 
 /*
-** util.c
+** util_gen.c
 */
 char			*get_env_var(char **env, char *var_name);
 char			*cat_path(char *dir, char *name);

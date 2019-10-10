@@ -1,40 +1,45 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/04/24 17:44:40 by qbackaer          #+#    #+#              #
-#    Updated: 2019/10/10 20:30:46 by qbackaer         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
-SRCS = minishell.c display.c getinput.c expand.c execute.c setenv.c unsetenv.c \
-       cd.c echo.c util.c util_get.c util_tab.c util_pwd.c util_sys.c
-OBJS = minishell.o display.o getinput.o expand.o execute.o setenv.o unsetenv.o \
-       cd.o echo.o util.o util_get.o util_tab.o util_pwd.o util_sys.o
+FLAG = -Wall -Wextra -Werror
+SOURCE = minishell.c getinput.c expand.c display.c execute.c setenv.c cd.c \
+	unsetenv.c echo.c util_gen.c util_get.c util_pwd.c util_sys.c util_tab.c
+LIBFT_DIR = libft/
+COMP_OBJ = ./obj/*.o
+OBJ_DIR = ./obj
+SRC_DIR = ./src
+INCLUDE = ./inc
+GGCOLORCYAN = \033[96m
+GGCOLORGREEN = \033[32m
+GGCOLORRED = \033[31m
+GGMAG = \033[1;35m
+GGRESET = \033[39m
+SRC = $(addprefix $(SRC_DIR)/, $(SOURCE))
+OBJ = $(addprefix $(OBJ_DIR)/, $(subst .c,.o, $(SOURCE)))
 
-all: $(NAME)
+all: comp
+	@mkdir -p $(OBJ_DIR)
+	@make $(NAME)
 
-$(NAME): $(OBJS)
-	make -C ./libft
-	$(CC) $(CFLAGS) $^ -I. ./libft/libft.a -o minishell
-	rm -rf *.o
+comp:
+	@make -C $(LIBFT_DIR)
 
-$(OBJS): $(addprefix src/,$(SRCS))
-	$(CC) $(CFLAGS) -I inc/ -c $^
+$(NAME): $(OBJ)
+	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
+	@echo "$(GGCOLORCYAN)Creation$(GGRESET) du binaire $(GGMAG)./minishell$(GGRESET)..."
+	@echo "$(GGCOLORGREEN)Success!$(GGRESET)"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "[$(GGCOLORGREEN)✔$(GGRESET)] "$(subst .c,,$<)
+	@mkdir -p $(dir $@) && gcc $(FLAG) -I $(INCLUDE) -o $@ -c $<
 
 clean:
-	rm -rf *.o
-	make fclean -C ./libft
+	@make -C $(LIBFT_DIR) clean
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf minishell
+	@make -C $(LIBFT_DIR) fclean
+	@rm -rf $(NAME)
+	@echo "$(GGCOLORRED)Suppresion$(GGRESET) de minishell..."
 
 re: fclean all
 
-.PHONY: re fclean clean all
+.PHONY: clean fclean re all
