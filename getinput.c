@@ -53,10 +53,25 @@ static char		**clean_args(char **args)
 	return (clean);
 }
 
-void			strdup_safe(char *dst, char *src)
+char			*strdup_safe(char *src)
 {
+	char *dst;
+
 	if (!(dst = ft_strdup(src)))
 		exit(EXIT_FAILURE);
+	return (dst);
+}
+
+char			*expand_vars_wpr(char *xpnd, char **env)
+{
+	char *tmp;
+	char *expanded;
+
+	tmp = strdup_safe(xpnd);
+	free(xpnd);
+	expanded = expand_vars(tmp, env);
+	free(tmp);
+	return (expanded);
 }
 
 static char		**expand_args(char **args, char **env, size_t ac)
@@ -71,26 +86,17 @@ static char		**expand_args(char **args, char **env, size_t ac)
 	xpnd[ac] = NULL;
 	while (args[i])
 	{
-		if (!(xpnd[i] = ft_strdup(args[i])))
-			exit(EXIT_FAILURE);
+		xpnd[i] = strdup_safe(args[i]);
 		if (xpnd[i][0] == '~' && (!xpnd[i][1] || xpnd[i][1] == '/'))
 		{
 			free(xpnd[i]);
 			if (!(tmp = get_env_var(env, "HOME")))
-			{
-				if (!(xpnd[i] = ft_strdup("")))
-					exit(EXIT_FAILURE);
-			}
+				xpnd[i] = strdup_safe("");
 			else if ((xpnd[i] = expand_tilde(args[i], tmp)))
 				free(tmp);
 		}
 		if (ft_strchr(xpnd[i], '$'))
-		{
-			tmp = ft_strdup(xpnd[i]);
-			free(xpnd[i]);
-			xpnd[i] = expand_vars(tmp, env);
-			free(tmp);
-		}
+			xpnd[i] = expand_vars_wpr(xpnd[i], env);
 		i++;
 	}
 	ft_free_tab2(args);
@@ -136,7 +142,7 @@ char			**get_input(char **env, t_pwd *pwd)
 	if (!ret)
 		exit_sh(env, pwd);
 	if (input_str && ft_strlen(input_str) && (input_str[0] == ';' 
-	|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
+				|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
 	{
 		free(input_str);
 		ft_putstr("minishell: syntax error: unexpected ';'\n");
