@@ -27,8 +27,7 @@ char	*get_env_var(char **env, char *var_name)
 	{
 		if (!ft_strncmp(*roam, var_name, var_len))
 		{
-			if (!(var_content = ft_strdup(*roam + var_len + 1)))
-				exit(EXIT_FAILURE);
+			var_content = strdup_safe(*roam + var_len + 1);
 			return (var_content);
 		}
 		roam++;

@@ -17,13 +17,11 @@ void	update_s_pwd(t_pwd *pwd)
 	char	tmp[PATH_MAX + 1];
 
 	free(pwd->owd);
-	if (!(pwd->owd = ft_strdup(pwd->cwd)))
-		exit(EXIT_FAILURE);
+	pwd->owd = strdup_safe(pwd->cwd);
 	free(pwd->cwd);
 	if (!(getcwd(tmp, PATH_MAX + 1)))
 		exit(EXIT_FAILURE);
-	if (!(pwd->cwd = ft_strdup(tmp)))
-		exit(EXIT_FAILURE);
+	pwd->cwd = strdup_safe(tmp);
 }
 
 int		update_pwd(char ***env, char *var, char *value)

@@ -38,7 +38,7 @@ static int	find_binary(char *dirpath, char *binname)
 
 	if (!(dr = opendir(dirpath)))
 	{
-		printf("opendir failure\n");
+		ft_putendl_fd("opendir failure", 2);
 		return (0);
 	}
 	while ((de = readdir(dr)))

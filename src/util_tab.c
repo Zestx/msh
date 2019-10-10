@@ -18,8 +18,7 @@ char	**init_tab(void)
 
 	if (!(tab = malloc(sizeof(tab) * 2)))
 		exit(EXIT_FAILURE);
-	if (!(tab[0] = ft_strdup("")))
-		exit(EXIT_FAILURE);
+	tab[0] = strdup_safe("");
 	tab[1] = NULL;
 	return (tab);
 }

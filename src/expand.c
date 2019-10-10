@@ -18,14 +18,15 @@ static char	*glue_arg(char **split)
 	char	*tmp;
 	char	**roam;
 
-	arg = ft_strdup("");
+	arg = strdup_safe("");
 	roam = split;
 	while (*roam)
 	{
 		if (ft_strcmp(*roam, " "))
 		{
 			tmp = arg;
-			arg = ft_strjoin(arg, *roam);
+			if (!(arg = ft_strjoin(arg, *roam)))
+				exit(EXIT_FAILURE);
 			free(tmp);
 		}
 		roam++;
@@ -46,14 +47,12 @@ static char	**get_val(char **split, char **env)
 			if (!(tmp = get_env_var(env, (*roam) + 1)))
 			{
 				free(*roam);
-				if (!(*roam = ft_strdup("")))
-					exit(EXIT_FAILURE);
+				*roam = strdup_safe("");
 			}
 			else
 			{
 				free(*roam);
-				if (!(*roam = ft_strdup(tmp)))
-					exit(EXIT_FAILURE);
+				*roam = strdup_safe(tmp);
 				free(tmp);
 			}
 		}

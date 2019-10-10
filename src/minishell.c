@@ -16,6 +16,7 @@ int			dispatch(char **input, char ***env, t_pwd *pwd)
 {
 	int ret;
 
+	rm_quotes(input);
 	ret = is_builtin(input, env, pwd);
 	if (ret < 0)
 		return (-1);
@@ -26,9 +27,9 @@ int			dispatch(char **input, char ***env, t_pwd *pwd)
 		{
 			if (ft_strcmp(input[0], ""))
 			{
-				ft_putstr("msh: ");
+				ft_putstr_fd("msh: ", 2);
 				ft_putstr(input[0]);
-				ft_putstr(": command not found.\n");
+				ft_putendl_fd(": command not found.", 2);
 			}
 			return (0);
 		}

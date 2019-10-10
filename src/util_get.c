@@ -48,3 +48,23 @@ size_t			get_clean_args(char **args)
 	}
 	return (len);
 }
+
+void			rm_quotes(char **args)
+{
+	char	**ptr;
+	char	*tmp;
+
+	ptr = args;
+	while (*ptr)
+	{
+		if (*ptr[0] &&
+		(*ptr)[0] == '\"' && (*ptr)[ft_strlen(*ptr) - 1] == '\"')
+		{
+			tmp = *ptr;
+			if (!(*ptr = ft_strsub(*ptr, 1, ft_strlen(*ptr) - 2)))
+				exit(EXIT_FAILURE);
+			free(tmp);
+		}
+		ptr++;
+	}
+}

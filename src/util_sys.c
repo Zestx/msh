@@ -41,11 +41,11 @@ void		exit_sh(char **env, t_pwd *pwd)
 
 int			access_error_wpr(char *path, int type, struct stat st)
 {
-	ft_putstr("minishell: ");
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr(path);
 	if (type && !(st.st_mode & S_IXUSR))
-		ft_putstr(": permission denied\n");
+		ft_putendl_fd(": permission denied\n", 2);
 	else
-		ft_putstr(": error\n");
+		ft_putendl_fd(": error\n", 2);
 	return (-1);
 }

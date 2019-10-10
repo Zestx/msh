@@ -1,5 +1,5 @@
 NAME = minishell
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra
 SOURCE = minishell.c getinput.c expand.c display.c execute.c setenv.c cd.c \
 	unsetenv.c echo.c util_gen.c util_get.c util_pwd.c util_sys.c util_tab.c
 LIBFT_DIR = libft/
@@ -24,7 +24,7 @@ comp:
 
 $(NAME): $(OBJ)
 	@gcc $(FLAG) $(COMP_OBJ) -I $(INCLUDE) -L $(LIBFT_DIR) -lft  -o $(NAME)
-	@echo "$(GGCOLORCYAN)Creation$(GGRESET) du binaire $(GGMAG)./minishell$(GGRESET)..."
+	@echo "Building $(GGCOLORCYAN)minishell $(GGRESET)executable..."
 	@echo "$(GGCOLORGREEN)Success!$(GGRESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -36,9 +36,9 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
+	@echo "$(GGCOLORRED)deleting $(GGRESET)minishell..."
 	@make -C $(LIBFT_DIR) fclean
 	@rm -rf $(NAME)
-	@echo "$(GGCOLORRED)Suppresion$(GGRESET) de minishell..."
 
 re: fclean all
 

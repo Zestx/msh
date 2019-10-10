@@ -23,7 +23,7 @@ char	**set_env(char **cmd, char ***env)
 	}
 	if (cmd[2] && cmd[3])
 	{
-		ft_putendl("minishell: setenv: too many arguments.");
+		ft_putendl_fd("minishell: setenv: too many arguments.", 2);
 		return (*env);
 	}
 	if (replace_env(cmd, *env) == 1)

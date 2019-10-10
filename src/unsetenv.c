@@ -14,12 +14,16 @@
 
 static int	is_envv(char *var, char **env)
 {
-	char **roam;
+	char 	**roam;
+	size_t	len;
 
 	roam = env;
 	while (*roam)
 	{
-		if (!ft_strncmp(*roam, var, ft_strlen(var)))
+		len = 0;
+		while ((*roam)[0] && (*roam)[len] != '=')
+			len++;
+		if (!ft_strncmp(*roam, var, len) && ft_strlen(var) == len)
 			return (1);
 		roam++;
 	}
@@ -40,7 +44,7 @@ static char	**remove_var(char *var, char **env)
 	{
 		if (ft_strncmp(*roam_o, var, ft_strlen(var)))
 		{
-			*roam_n = ft_strdup(*roam_o);
+			*roam_n = strdup_safe(*roam_o);
 			roam_n++;
 		}
 		roam_o++;
@@ -56,7 +60,7 @@ char		**unset_env(char **cmd, char ***env)
 
 	if (!cmd[1])
 	{
-		ft_putendl("minishell: unsetenv: too few arguments");
+		ft_putendl_fd("minishell: unsetenv: too few arguments", 2);
 		return (*env);
 	}
 	roam = cmd + 1;

@@ -18,7 +18,7 @@ void			printenv(char **env)
 
 	if (!env)
 	{
-		ft_putendl("minishell: error: empty environement.");
+		ft_putendl_fd("minishell: error: empty environement.", 2);
 		return ;
 	}
 	roam = env;

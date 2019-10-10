@@ -108,6 +108,7 @@ void			realloc_sub(char *str, char ***split, unsigned int i, size_t e);
 char			*strdup_safe(char *src);
 char			*expand_vars_wpr(char *xpnd, char **env);
 size_t			get_clean_args(char **args);
+void			rm_quotes(char **args);
 
 /*
 ** util_tab.c

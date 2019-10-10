@@ -27,8 +27,7 @@ static char		**clean_args(char **args)
 	{
 		if (ft_strcmp(*args_ptr, " ") && ft_strcmp(*args_ptr, ""))
 		{
-			if (!(*clean_ptr = ft_strdup(*args_ptr)))
-				exit(EXIT_FAILURE);
+			*clean_ptr = strdup_safe(*args_ptr);
 			clean_ptr++;
 		}
 		args_ptr++;
@@ -126,7 +125,7 @@ char			**get_input(char **env, t_pwd *pwd)
 	|| ((chr = ft_strchr(input_str, ';')) && *(chr + 1) == ';')))
 	{
 		free(input_str);
-		ft_putstr("minishell: syntax error: unexpected ';'\n");
+		ft_putendl_fd("minishell: syntax error: unexpected ';'", 2);
 		return (NULL);
 	}
 	if (!input_str || !ft_strlen(input_str))
